@@ -1,0 +1,463 @@
+{% comment %}
+  Product Page Template — VANT
+
+  === MODELO DE DESCRIÇÃO (cole no campo Descrição de cada produto no painel) ===
+
+  MODELO CURTO:
+  "Um detalhe que segura o look inteiro. O [NOME] combina [CARACTERÍSTICA VISUAL]
+  com uma presença que funciona do básico ao marcante."
+
+  MODELO COMPLETO:
+  "O [NOME] foi pensado para quem acredita que um bom acessório muda tudo.
+  Seu design [DESCREVER FORMATO, TEXTURA OU ESTILO] cria um ponto de destaque
+  no look, seja usado sozinho ou combinado com outras peças VANT.
+
+  Use quando quiser:
+  - elevar uma produção básica;
+  - criar mais presença sem exagerar;
+  - transformar um look simples em uma escolha intencional.
+
+  Acabamento: [DOURADO/PRATA]
+  Medidas: [MEDIDAS REAIS]
+  Material: [MATERIAL REAL]
+  Cuidados: evite contato com água, perfume, cremes, suor, praia e piscina."
+
+  === NOME DO PRODUTO ===
+  Formato: [Tipo] + [Nome editorial]
+  Ex: Anel Aura Dourado | Brinco Miragem Prata | Colar Nara com Pingente
+
+  === SEO ===
+  Title: "[Nome do Produto] | VANT"
+  Meta: "Conheça o [Nome] da VANT: uma peça para elevar o seu look com brilho, presença e personalidade."
+  Slug: /produtos/[nome-do-produto]
+  Alt das fotos: "[Nome do Produto] [cor] VANT em fundo branco"
+
+  === TAGS (ativam recursos visuais no tema) ===
+  "Mais vendido" → badge dourado e inclusão no carrossel da home
+  "Novidade"     → badge verde e inclusão na seção de novidades
+  "Brasil Core"  → badge especial e inclusão na coleção Brasil Core
+{% endcomment %}
+
+<!-- Schema.org Product -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.name | escape }}",
+  "description": "{{ product.description | strip_html | truncate: 200 | escape }}",
+  "image": "{{ product.featured_image | image_url: '1200x1200' }}",
+  "url": "{{ product.url }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "VANT"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ product.price | divided_by: 100.0 }}",
+    "priceCurrency": "BRL",
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "seller": {
+      "@type": "Organization",
+      "name": "{{ store.name }}"
+    }
+  }
+}
+</script>
+
+<div class="page-product">
+  <div class="container">
+
+    {% include 'breadcrumbs' %}
+
+    <div class="product-layout">
+
+      <!-- ========== GALLERY ========== -->
+      <div class="product-gallery" role="region" aria-label="Galeria de fotos do produto">
+        <!-- Thumbnails (desktop) -->
+        <div class="product-gallery__thumbs" id="galleryThumbs" aria-label="Miniaturas da galeria">
+          {% for image in product.images %}
+          <button
+            class="gallery-thumb{% if forloop.first %} is-active{% endif %}"
+            data-index="{{ forloop.index0 }}"
+            aria-label="Ver imagem {{ forloop.index }} de {{ product.images.size }}"
+            aria-pressed="{{ forloop.first }}"
+          >
+            <img
+              src="{{ image | image_url: '120x120' }}"
+              alt="{{ image.alt | default: product.name }}"
+              width="120"
+              height="120"
+              loading="lazy"
+            >
+          </button>
+          {% endfor %}
+        </div>
+
+        <!-- Main image + swipe on mobile -->
+        <div class="product-gallery__main" id="galleryMain">
+          <div class="product-gallery__slides" id="gallerySlides">
+            {% for image in product.images %}
+            <div class="product-gallery__slide{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}">
+              <img
+                class="product-gallery__img"
+                src="{{ image | image_url: '900x900' }}"
+                alt="{{ image.alt | default: product.name }}"
+                width="900"
+                height="900"
+                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                data-zoom="{{ image | image_url: '1400x1400' }}"
+              >
+            </div>
+            {% endfor %}
+          </div>
+
+          <!-- Gallery navigation arrows -->
+          {% if product.images.size > 1 %}
+          <button class="gallery-nav gallery-nav--prev" id="galleryPrev" aria-label="Imagem anterior">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <button class="gallery-nav gallery-nav--next" id="galleryNext" aria-label="Próxima imagem">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          {% endif %}
+
+          <!-- Dot indicators (mobile) -->
+          {% if product.images.size > 1 %}
+          <div class="gallery-dots" role="tablist" aria-label="Navegação da galeria">
+            {% for image in product.images %}
+            <button
+              class="gallery-dot{% if forloop.first %} is-active{% endif %}"
+              role="tab"
+              aria-label="Imagem {{ forloop.index }}"
+              aria-selected="{{ forloop.first }}"
+              data-index="{{ forloop.index0 }}"
+            ></button>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- ========== PRODUCT INFO ========== -->
+      <div class="product-info">
+
+        <!-- Badges -->
+        <div class="product-info__badges">
+          {% if product.tags contains 'Mais vendido' %}
+          <span class="badge badge--bestseller">Mais vendido</span>
+          {% endif %}
+          {% if product.tags contains 'Novidade' %}
+          <span class="badge badge--new">Novidade</span>
+          {% endif %}
+          {% if product.tags contains 'Brasil Core' %}
+          <span class="badge badge--brasil-core">Brasil Core</span>
+          {% endif %}
+        </div>
+
+        <!-- Name -->
+        <h1 class="product-info__name">{{ product.name }}</h1>
+
+        <!-- Price -->
+        <div class="product-info__pricing" id="productPricing">
+          <div class="product-info__price-main">
+            {% if product.compare_at_price > product.price %}
+            <span class="price-compare" aria-label="Preço original">
+              <s>{{ product.compare_at_price | money }}</s>
+            </span>
+            {% endif %}
+            <span class="price-current{% if product.compare_at_price > product.price %} price-current--sale{% endif %}" aria-label="Preço atual">
+              {{ product.price | money }}
+            </span>
+          </div>
+
+          {% if product.installments %}
+          <p class="price-installments">
+            ou {{ product.installments.count }}x de <strong>{{ product.installments.amount | money }}</strong> sem juros
+          </p>
+          {% endif %}
+        </div>
+
+        <!-- Form -->
+        <form class="product-form" id="productForm" action="{{ store.url }}/add-to-cart/{{ product.id }}" method="post">
+          <input type="hidden" name="product_id" id="productId" value="{{ product.id }}">
+
+          {% if product.variants.size > 1 %}
+
+          <!-- Variant: Acabamento (Dourado / Prata) -->
+          {% assign finish_variants = product.variants | where: 'option1_name', 'Acabamento' %}
+          {% if finish_variants.size > 0 %}
+          <div class="variant-group" id="variantFinish">
+            <div class="variant-group__header">
+              <span class="variant-group__label">Acabamento</span>
+              <span class="variant-group__selected" id="selectedFinish"></span>
+            </div>
+            <div class="variant-group__options" role="radiogroup" aria-label="Escolha o acabamento">
+              {% for variant in product.variants %}
+              {% if variant.option1 %}
+              <label class="variant-swatch{% unless variant.available %} is-unavailable{% endunless %}">
+                <input
+                  type="radio"
+                  name="variant_id"
+                  value="{{ variant.id }}"
+                  {% if forloop.first %}checked{% endif %}
+                  {% unless variant.available %}disabled{% endunless %}
+                  class="variant-swatch__input"
+                  data-price="{{ variant.price }}"
+                  data-compare-price="{{ variant.compare_at_price }}"
+                  data-name="{{ variant.option1 }}"
+                >
+                <span class="variant-swatch__color variant-swatch__color--{{ variant.option1 | downcase | replace: ' ', '-' | replace: 'á', 'a' | replace: 'é', 'e' | replace: 'ê', 'e' }}" aria-label="{{ variant.option1 }}{% unless variant.available %} — esgotado{% endunless %}">
+                  <span class="variant-swatch__label">{{ variant.option1 }}</span>
+                </span>
+              </label>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Variant: Tamanho (Anéis) -->
+          {% assign size_variants = product.variants | where: 'option2_name', 'Tamanho' %}
+          {% if size_variants.size > 0 %}
+          <div class="variant-group" id="variantSize">
+            <div class="variant-group__header">
+              <span class="variant-group__label">Tamanho</span>
+              <span class="variant-group__selected" id="selectedSize"></span>
+              <button type="button" class="variant-group__guide-link" id="openSizeGuide" aria-haspopup="dialog">
+                Guia de tamanhos
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/>
+                  <path d="M7 6.5V10M7 4.5V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+            <div class="variant-group__chips" role="radiogroup" aria-label="Escolha o tamanho">
+              {% for variant in product.variants %}
+              {% if variant.option2 %}
+              <label class="variant-chip{% unless variant.available %} is-unavailable{% endunless %}">
+                <input
+                  type="radio"
+                  name="variant_size"
+                  value="{{ variant.option2 }}"
+                  {% if forloop.first %}checked{% endif %}
+                  {% unless variant.available %}disabled{% endunless %}
+                  class="variant-chip__input"
+                >
+                <span class="variant-chip__label">{{ variant.option2 }}</span>
+              </label>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          {% endif %}
+
+          <!-- Quantity -->
+          <div class="product-form__quantity">
+            <label for="productQty" class="product-form__qty-label">Quantidade</label>
+            <div class="qty-selector">
+              <button type="button" class="qty-selector__btn qty-selector__btn--minus" aria-label="Diminuir quantidade">−</button>
+              <input type="number" id="productQty" name="quantity" class="qty-selector__input" min="1" max="{{ product.stock }}" value="1" aria-label="Quantidade">
+              <button type="button" class="qty-selector__btn qty-selector__btn--plus" aria-label="Aumentar quantidade">+</button>
+            </div>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="product-form__ctas">
+            {% if product.available %}
+            <button type="submit" class="btn btn--primary btn--full btn--lg product-form__submit" id="addToCartBtn">
+              <span class="product-form__submit-text">Adicionar à sacola</span>
+              <span class="product-form__submit-loading" hidden aria-live="polite">Adicionando...</span>
+            </button>
+            {% else %}
+            <button type="button" class="btn btn--disabled btn--full btn--lg" disabled aria-disabled="true">
+              Produto esgotado
+            </button>
+            {% endif %}
+
+            <button
+              type="button"
+              class="btn btn--ghost btn--full wishlist-btn product-form__wishlist"
+              aria-label="Adicionar aos favoritos"
+              data-product-id="{{ product.id }}"
+              data-product-name="{{ product.name }}"
+              data-product-url="{{ product.url }}"
+              data-product-image="{{ product.featured_image | image_url: '300x300' }}"
+            >
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+              Favoritar
+            </button>
+          </div>
+
+          <!-- WhatsApp share -->
+          <a
+            href="https://api.whatsapp.com/send?text={{ product.name | url_encode }}%20-%20{{ product.url | url_encode }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="product-form__whatsapp"
+            aria-label="Compartilhar no WhatsApp"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20.52 3.48A11.94 11.94 0 0012 0C5.37 0 0 5.37 0 12c0 2.1.55 4.16 1.6 5.99L0 24l6.18-1.62A11.94 11.94 0 0012 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z" fill="#25D366"/>
+              <path d="M17.47 14.86c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.46-.4-.4-.54-.41-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.65.58.25 1.03.4 1.38.51.58.18 1.11.15 1.52.09.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z" fill="white"/>
+            </svg>
+            Compartilhar no WhatsApp
+          </a>
+
+        </form>
+
+        <!-- Shipping calculator -->
+        <div class="shipping-calculator" id="shippingCalc">
+          <h3 class="shipping-calculator__title">Calcular frete</h3>
+          <form class="shipping-calculator__form" id="shippingForm" novalidate>
+            <div class="shipping-calculator__input-group">
+              <label for="cepInput" class="sr-only">CEP</label>
+              <input
+                type="text"
+                id="cepInput"
+                name="cep"
+                placeholder="Digite seu CEP"
+                maxlength="9"
+                inputmode="numeric"
+                pattern="[0-9]{5}-[0-9]{3}"
+                class="shipping-calculator__input"
+                aria-label="CEP para cálculo de frete"
+              >
+              <button type="submit" class="shipping-calculator__btn">Calcular</button>
+            </div>
+            <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank" rel="noopener noreferrer" class="shipping-calculator__cep-link">Não sei meu CEP</a>
+          </form>
+          <div class="shipping-calculator__results" id="shippingResults" aria-live="polite" hidden></div>
+        </div>
+
+        <!-- Accordions -->
+        <div class="product-accordions">
+
+          {% if product.description %}
+          <div class="accordion" id="accordionDetails">
+            <button class="accordion__trigger" aria-expanded="false" aria-controls="accordionDetailsBody">
+              Detalhes da peça
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="accordion__body" id="accordionDetailsBody" hidden>
+              <div class="rte">{{ product.description }}</div>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if product.attributes.medidas %}
+          <div class="accordion">
+            <button class="accordion__trigger" aria-expanded="false" aria-controls="accordionMeasures">
+              Medidas
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="accordion__body" id="accordionMeasures" hidden>
+              <div class="rte">{{ product.attributes.medidas }}</div>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="accordion">
+            <button class="accordion__trigger" aria-expanded="false" aria-controls="accordionCare">
+              Cuidados com a peça
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="accordion__body" id="accordionCare" hidden>
+              <div class="rte">
+                <p>Evite contato direto com água, suor, perfume, cremes, praia e piscina. Guarde suas peças separadamente, em local seco, para preservar o brilho por mais tempo.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion">
+            <button class="accordion__trigger" aria-expanded="false" aria-controls="accordionShipping">
+              Envio e entrega
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="accordion__body" id="accordionShipping" hidden>
+              <div class="rte">
+                <p>Após a confirmação do pagamento, seu pedido é preparado e enviado conforme o prazo informado no checkout. Você receberá atualizações para acompanhar cada etapa.</p>
+                <p>Frete grátis em compras acima de R$100 quando disponível para o seu CEP.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion">
+            <button class="accordion__trigger" aria-expanded="false" aria-controls="accordionExchange">
+              Trocas e devoluções
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="accordion__body" id="accordionExchange" hidden>
+              <div class="rte">
+                <p>Consulte as condições de troca e devolução em nossa <a href="{{ store.url }}/trocas-e-devolucoes">página específica</a> ou entre em contato com nosso atendimento.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== RELATED PRODUCTS ========== -->
+    {% if product.related_products.size > 0 %}
+    <section class="section section--related" aria-labelledby="relatedHeading">
+      <div class="section-heading">
+        <h2 class="section-heading__title" id="relatedHeading">Você também pode gostar</h2>
+      </div>
+      <div class="products-carousel" id="relatedCarousel">
+        {% for related in product.related_products limit:6 %}
+          {% include 'product-card', product: related %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- ========== RECENTLY VIEWED ========== -->
+    <section class="section section--recently-viewed" id="recentlyViewed" aria-labelledby="recentlyViewedHeading" hidden>
+      <div class="section-heading">
+        <h2 class="section-heading__title" id="recentlyViewedHeading">Vistos recentemente</h2>
+      </div>
+      <div class="products-carousel" id="recentlyViewedCarousel">
+        <!-- Rendered by JS from localStorage -->
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  // Store recently viewed product
+  (function() {
+    try {
+      var product = {
+        id: '{{ product.id }}',
+        name: {{ product.name | json }},
+        url: '{{ product.url }}',
+        image: '{{ product.featured_image | image_url: "300x300" }}',
+        price: '{{ product.price | money }}'
+      };
+      var viewed = JSON.parse(localStorage.getItem('vant_viewed') || '[]');
+      viewed = viewed.filter(function(p) { return p.id !== product.id; });
+      viewed.unshift(product);
+      if (viewed.length > 8) viewed = viewed.slice(0, 8);
+      localStorage.setItem('vant_viewed', JSON.stringify(viewed));
+    } catch(e) {}
+  })();
+</script>

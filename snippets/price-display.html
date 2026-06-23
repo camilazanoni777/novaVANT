@@ -1,0 +1,22 @@
+{% comment %}
+  Price Display Snippet
+  Usage: {% include 'price-display', product: product %}
+{% endcomment %}
+
+<div class="price-display">
+  {% if product.compare_at_price > product.price %}
+  <span class="price-display__compare" aria-label="Preço original">
+    <s>{{ product.compare_at_price | money }}</s>
+  </span>
+  {% endif %}
+
+  <span class="price-display__current{% if product.compare_at_price > product.price %} price-display__current--sale{% endif %}" aria-label="Preço atual">
+    {{ product.price | money }}
+  </span>
+
+  {% if product.installments %}
+  <span class="price-display__installments" aria-label="Parcelamento">
+    ou {{ product.installments.count }}x de {{ product.installments.amount | money }} sem juros
+  </span>
+  {% endif %}
+</div>

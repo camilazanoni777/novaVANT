@@ -1,0 +1,54 @@
+<aside class="search-drawer" id="searchDrawer" role="dialog" aria-modal="true" aria-label="Buscar produtos" aria-hidden="true">
+  <div class="search-drawer__inner">
+
+    <div class="search-drawer__header">
+      <form class="search-drawer__form" action="{{ store.url }}/busca" method="get" role="search">
+        <label for="searchInput" class="sr-only">Buscar produtos</label>
+        <input
+          type="search"
+          id="searchInput"
+          name="q"
+          class="search-drawer__input"
+          placeholder="O que você está procurando?"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+          aria-autocomplete="list"
+          aria-controls="searchSuggestions"
+        >
+        <button type="submit" class="search-drawer__submit" aria-label="Buscar">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <circle cx="8.5" cy="8.5" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M14 14L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button type="button" class="search-drawer__close" id="searchDrawerClose" aria-label="Fechar busca">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <!-- Suggestions -->
+    <div class="search-drawer__body">
+      <ul class="search-suggestions" id="searchSuggestions" role="listbox" aria-label="Sugestões de busca" hidden>
+        <!-- Rendered by JS -->
+      </ul>
+
+      <!-- Quick links (default state) -->
+      <div class="search-drawer__quick-links" id="searchQuickLinks">
+        <p class="search-drawer__label">Categorias populares</p>
+        <div class="search-quick-tags">
+          <a href="{{ store.url }}/aneis" class="search-tag">Anéis</a>
+          <a href="{{ store.url }}/colares" class="search-tag">Colares</a>
+          <a href="{{ store.url }}/brincos" class="search-tag">Brincos</a>
+          <a href="{{ store.url }}/pulseiras" class="search-tag">Pulseiras</a>
+          <a href="{{ store.url }}/conjuntos" class="search-tag">Conjuntos</a>
+          <a href="{{ store.url }}/brasil-core" class="search-tag">Brasil Core</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</aside>

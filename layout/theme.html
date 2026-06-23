@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>{{ page_title }}</title>
+  <meta name="description" content="{{ page_description }}">
+
+  {% if canonical_url %}
+  <link rel="canonical" href="{{ canonical_url }}">
+  {% endif %}
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="{% if template == 'product' %}product{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ page_description }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:site_name" content="{{ store.name }}">
+  {% if product.featured_image %}
+  <meta property="og:image" content="{{ product.featured_image | image_url: '1200x630' }}">
+  {% elsif store.logo %}
+  <meta property="og:image" content="{{ store.logo | image_url: '1200x630' }}">
+  {% endif %}
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page_title }}">
+  <meta name="twitter:description" content="{{ page_description }}">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#FFFDFC">
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Theme CSS -->
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  <!-- Schema.org Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "{{ store.name }}",
+    "url": "{{ store.url }}",
+    "logo": "{{ store.logo | image_url: '400x200' }}",
+    "sameAs": ["https://www.instagram.com/getvant_com"]
+  }
+  </script>
+
+  {{ theme_head_tags }}
+</head>
+
+<body class="template-{{ template }}{% if customer %} customer-logged-in{% endif %}">
+
+  {{ theme_body_start_tags }}
+
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
+
+  <!-- Top bar -->
+  {% include 'top-bar' %}
+
+  <!-- Header -->
+  {% include 'header' %}
+
+  <!-- Cart Drawer -->
+  {% include 'cart-drawer' %}
+
+  <!-- Search Drawer -->
+  {% include 'search-drawer' %}
+
+  <!-- Size Guide Modal -->
+  {% include 'size-guide-modal' %}
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+  <!-- Main Content -->
+  <main id="main-content" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  <!-- Footer -->
+  {% include 'footer' %}
+
+  <!-- LGPD Cookies Banner -->
+  {% include 'cookies-banner' %}
+
+  <!-- Theme JavaScript -->
+  {{ 'theme.js' | asset_url | script_tag }}
+
+  {{ theme_body_end_tags }}
+
+</body>
+</html>

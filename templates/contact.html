@@ -1,0 +1,73 @@
+{% comment %} Contact Page Template {% endcomment %}
+
+<div class="page-contact">
+  <div class="container container--narrow">
+
+    {% include 'breadcrumbs' %}
+
+    <header class="page-header">
+      <h1 class="page-header__title">Fala com a VANT</h1>
+      <p class="page-header__sub">
+        Precisa de ajuda com um pedido, uma peça ou seu tamanho? Nosso atendimento está aqui para deixar sua experiência mais leve.
+      </p>
+    </header>
+
+    <div class="contact-layout">
+      <!-- Contact form -->
+      <div class="contact-form-wrapper">
+        <form class="contact-form" action="{{ store.url }}/contato" method="post" novalidate>
+
+          <div class="form-group">
+            <label for="contactName" class="form-label">Nome <span aria-hidden="true">*</span></label>
+            <input type="text" id="contactName" name="name" class="form-input" autocomplete="name" required aria-required="true" placeholder="Seu nome">
+          </div>
+
+          <div class="form-group">
+            <label for="contactEmail" class="form-label">E-mail <span aria-hidden="true">*</span></label>
+            <input type="email" id="contactEmail" name="email" class="form-input" autocomplete="email" required aria-required="true" placeholder="seuemail@exemplo.com">
+          </div>
+
+          <div class="form-group">
+            <label for="contactOrder" class="form-label">Número do pedido <span class="form-label--optional">(opcional)</span></label>
+            <input type="text" id="contactOrder" name="order" class="form-input" placeholder="#12345">
+          </div>
+
+          <div class="form-group">
+            <label for="contactMessage" class="form-label">Mensagem <span aria-hidden="true">*</span></label>
+            <textarea id="contactMessage" name="message" class="form-textarea" rows="5" required aria-required="true" placeholder="Como podemos ajudar?"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--full">Enviar mensagem</button>
+        </form>
+      </div>
+
+      <!-- Contact info -->
+      <div class="contact-info">
+        <h2 class="contact-info__title">Outras formas de falar com a gente</h2>
+
+        <div class="contact-info__channels">
+          <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="contact-channel">
+            <div class="contact-channel__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="contact-channel__text">
+              <strong>Instagram</strong>
+              <span>@getvant_com</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="contact-info__links">
+          <a href="{{ store.url }}/faq" class="contact-info__link">Perguntas frequentes →</a>
+          <a href="{{ store.url }}/rastrear-pedido" class="contact-info__link">Rastrear meu pedido →</a>
+          <a href="{{ store.url }}/trocas-e-devolucoes" class="contact-info__link">Trocas e devoluções →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

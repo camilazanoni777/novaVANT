@@ -1,0 +1,189 @@
+<header class="site-header" id="siteHeader" role="banner">
+  <div class="header__inner container">
+
+    <!-- Mobile: hamburger -->
+    <button class="header__menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menu">
+      <span class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+
+    <!-- Logo -->
+    <a href="{{ store.url }}" class="header__logo" aria-label="{{ store.name }} — página inicial">
+      <svg class="header__logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" role="img" aria-label="{{ store.name }}" focusable="false">
+        <defs>
+          <linearGradient id="vhf-gl" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0"  stop-color="#B9945E" stop-opacity="0"/>
+            <stop offset=".4" stop-color="#B9945E" stop-opacity=".85"/>
+            <stop offset=".6" stop-color="#B9945E" stop-opacity=".85"/>
+            <stop offset="1"  stop-color="#B9945E" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path class="vhf-glow vhf-glow-loop" d="M110 5 L122 12 L126 23 L122 34 L110 41 L98 34 L94 23 L98 12 Z"/>
+        <path class="vhf-gem"                d="M110 5 L122 12 L126 23 L122 34 L110 41 L98 34 L94 23 L98 12 Z"/>
+        <line class="vhf-facet vhf-f1" x1="94"  y1="23" x2="126" y2="23"/>
+        <line class="vhf-facet vhf-f2" x1="110" y1="5"  x2="110" y2="41"/>
+        <line class="vhf-facet vhf-f3" x1="110" y1="5"  x2="98"  y2="34"/>
+        <line class="vhf-facet vhf-f4" x1="110" y1="5"  x2="122" y2="34"/>
+        <line class="vhf-inner" x1="98"  y1="12" x2="110" y2="41"/>
+        <line class="vhf-inner" x1="122" y1="12" x2="98"  y2="34"/>
+        <line class="vhf-ext vhf-ll" x1="94"  y1="23" x2="18"  y2="23" stroke="url(#vhf-gl)" stroke-width=".5"/>
+        <line class="vhf-ext vhf-lr" x1="126" y1="23" x2="202" y2="23" stroke="url(#vhf-gl)" stroke-width=".5"/>
+        <g class="vhf-jewel" style="transform-box:fill-box;transform-origin:110px 5px">
+          <polygon points="110,1 113,5 110,9 107,5" fill="none" stroke="#B9945E" stroke-width=".8"/>
+          <circle cx="110" cy="5" r="1.5" fill="#B9945E"/>
+        </g>
+        <text class="vhf-wm" x="110" y="64"
+          font-family="'Cormorant Garamond', Cormorant, Georgia, serif"
+          font-size="26" font-weight="300"
+          fill="#2A2522" text-anchor="middle" letter-spacing="8">VANT</text>
+      </svg>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="header__nav" id="desktopNav" aria-label="Navegação principal">
+      <ul class="nav__list" role="list">
+        <li class="nav__item nav__item--dropdown">
+          <a href="{{ store.url }}/categorias" class="nav__link" aria-haspopup="true" aria-expanded="false">
+            Coleções
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+              <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <div class="nav__dropdown" role="region" aria-label="Submenu Coleções">
+            <div class="nav__dropdown-inner">
+              {% for category in store.categories limit:12 %}
+              <a href="{{ category.url }}" class="nav__dropdown-link">{{ category.name }}</a>
+              {% endfor %}
+              <a href="{{ store.url }}/brasil-core" class="nav__dropdown-link nav__dropdown-link--featured">Brasil Core</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav__item">
+          <a href="{{ store.url }}/mais-vendidos" class="nav__link">Mais Vendidos</a>
+        </li>
+        <li class="nav__item">
+          <a href="{{ store.url }}/novidades" class="nav__link">Novidades</a>
+        </li>
+        <li class="nav__item">
+          <a href="{{ store.url }}/brasil-core" class="nav__link nav__link--highlight">Brasil Core</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header__actions">
+      <!-- Search -->
+      <button class="header__action-btn" id="searchToggle" aria-label="Buscar produtos" aria-expanded="false" aria-controls="searchDrawer">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="8.5" cy="8.5" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M14 14L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <!-- Wishlist -->
+      <a href="{{ store.url }}/lista-de-desejos" class="header__action-btn" aria-label="Lista de favoritos">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+        <span class="wishlist-count" id="wishlistCount" aria-label="itens nos favoritos" style="display:none">0</span>
+      </a>
+
+      <!-- Account -->
+      <a href="{{ store.url }}/cliente" class="header__action-btn header__action-btn--account" aria-label="Minha conta">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M3 18C3 14.686 6.134 12 10 12C13.866 12 17 14.686 17 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+
+      <!-- Cart -->
+      <button class="header__action-btn header__cart-btn" id="cartToggle" aria-label="Abrir carrinho" aria-expanded="false" aria-controls="cartDrawer">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M2 2H3.5L5.5 13H15L17 5H5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="8" cy="16.5" r="1" fill="currentColor"/>
+          <circle cx="13" cy="16.5" r="1" fill="currentColor"/>
+        </svg>
+        <span class="cart-count" id="cartCount" aria-label="itens no carrinho">{{ cart.items_count }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Menu mobile" aria-hidden="true">
+    <div class="mobile-menu__inner">
+      <div class="mobile-menu__header">
+        <a href="{{ store.url }}" class="mobile-menu__logo" aria-label="{{ store.name }}">
+          <svg class="header__logo-svg header__logo-svg--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" role="img" aria-label="{{ store.name }}" focusable="false">
+            <defs>
+              <linearGradient id="vhf-gl-m" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0"  stop-color="#B9945E" stop-opacity="0"/>
+                <stop offset=".4" stop-color="#B9945E" stop-opacity=".85"/>
+                <stop offset=".6" stop-color="#B9945E" stop-opacity=".85"/>
+                <stop offset="1"  stop-color="#B9945E" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path class="vhf-glow" d="M110 5 L122 12 L126 23 L122 34 L110 41 L98 34 L94 23 L98 12 Z"/>
+            <path class="vhf-gem"  d="M110 5 L122 12 L126 23 L122 34 L110 41 L98 34 L94 23 L98 12 Z"/>
+            <line class="vhf-facet vhf-f1" x1="94"  y1="23" x2="126" y2="23"/>
+            <line class="vhf-facet vhf-f2" x1="110" y1="5"  x2="110" y2="41"/>
+            <line class="vhf-facet vhf-f3" x1="110" y1="5"  x2="98"  y2="34"/>
+            <line class="vhf-facet vhf-f4" x1="110" y1="5"  x2="122" y2="34"/>
+            <line class="vhf-inner" x1="98"  y1="12" x2="110" y2="41"/>
+            <line class="vhf-inner" x1="122" y1="12" x2="98"  y2="34"/>
+            <line class="vhf-ext vhf-ll" x1="94"  y1="23" x2="18"  y2="23" stroke="url(#vhf-gl-m)" stroke-width=".5"/>
+            <line class="vhf-ext vhf-lr" x1="126" y1="23" x2="202" y2="23" stroke="url(#vhf-gl-m)" stroke-width=".5"/>
+            <g class="vhf-jewel" style="transform-box:fill-box;transform-origin:110px 5px">
+              <polygon points="110,1 113,5 110,9 107,5" fill="none" stroke="#B9945E" stroke-width=".8"/>
+              <circle cx="110" cy="5" r="1.5" fill="#B9945E"/>
+            </g>
+            <text class="vhf-wm" x="110" y="64"
+              font-family="'Cormorant Garamond', Cormorant, Georgia, serif"
+              font-size="26" font-weight="300"
+              fill="#2A2522" text-anchor="middle" letter-spacing="8">VANT</text>
+          </svg>
+        </a>
+        <button class="mobile-menu__close" id="menuClose" aria-label="Fechar menu">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <ul class="mobile-nav" role="list">
+        <li class="mobile-nav__item">
+          <button class="mobile-nav__toggle" aria-expanded="false" aria-controls="mobileSubmenuColecoes">
+            Coleções
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+              <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <ul class="mobile-nav__submenu" id="mobileSubmenuColecoes" role="list" hidden>
+            {% for category in store.categories limit:12 %}
+            <li><a href="{{ category.url }}" class="mobile-nav__sublink">{{ category.name }}</a></li>
+            {% endfor %}
+            <li><a href="{{ store.url }}/brasil-core" class="mobile-nav__sublink mobile-nav__sublink--featured">Brasil Core</a></li>
+          </ul>
+        </li>
+        <li class="mobile-nav__item">
+          <a href="{{ store.url }}/mais-vendidos" class="mobile-nav__link">Mais Vendidos</a>
+        </li>
+        <li class="mobile-nav__item">
+          <a href="{{ store.url }}/novidades" class="mobile-nav__link">Novidades</a>
+        </li>
+        <li class="mobile-nav__item">
+          <a href="{{ store.url }}/brasil-core" class="mobile-nav__link mobile-nav__link--highlight">Brasil Core</a>
+        </li>
+      </ul>
+
+      <div class="mobile-menu__footer">
+        <a href="{{ store.url }}/cliente" class="mobile-menu__footer-link">Minha conta</a>
+        <a href="{{ store.url }}/rastrear-pedido" class="mobile-menu__footer-link">Rastrear pedido</a>
+        <a href="{{ store.url }}/contato" class="mobile-menu__footer-link">Contato</a>
+        <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="mobile-menu__footer-link">@getvant_com</a>
+      </div>
+    </div>
+  </nav>
+</header>

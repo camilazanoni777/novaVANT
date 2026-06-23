@@ -1,0 +1,172 @@
+{% comment %} FAQ Page Template {% endcomment %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qual é o prazo de envio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Após a confirmação do pagamento, seu pedido é preparado e enviado conforme o prazo informado no checkout. Você receberá atualizações para acompanhar cada etapa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quando tenho frete grátis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O frete é grátis para compras acima de R$100. A condição é aplicada automaticamente quando disponível para o seu CEP."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quais formas de pagamento a VANT aceita?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aceitamos Pix, cartão de crédito, boleto e parcelamento, conforme as opções disponíveis no checkout."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como descubro meu tamanho de anel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Você encontra nosso guia de tamanhos na página do produto. Use um anel que já fique confortável em você para comparar as medidas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como cuidar das minhas peças?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evite contato direto com água, suor, perfume, cremes, praia e piscina. Guarde suas peças separadamente, em local seco, para preservar o brilho por mais tempo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como acompanho meu pedido?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Assim que seu pedido for enviado, você receberá as informações de rastreio no e-mail cadastrado na compra."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Posso trocar meu pedido?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Consulte as condições de troca e devolução na página específica da loja ou entre em contato com nosso atendimento."
+      }
+    }
+  ]
+}
+</script>
+
+<div class="page-faq">
+  <div class="container container--narrow">
+
+    {% include 'breadcrumbs' %}
+
+    <header class="page-header">
+      <h1 class="page-header__title">Perguntas frequentes</h1>
+      <p class="page-header__sub">Encontre as respostas mais comuns. Se não resolver, a gente está aqui.</p>
+    </header>
+
+    <div class="faq-list">
+
+      <div class="accordion">
+        <button class="accordion__trigger" aria-expanded="false" aria-controls="faq1">
+          Qual é o prazo de envio?
+          <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="accordion__body" id="faq1" hidden>
+          <p>Após a confirmação do pagamento, seu pedido é preparado e enviado conforme o prazo informado no checkout. Você receberá atualizações para acompanhar cada etapa.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="accordion__trigger" aria-expanded="false" aria-controls="faq2">
+          Quando tenho frete grátis?
+          <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="accordion__body" id="faq2" hidden>
+          <p>O frete é grátis para compras acima de R$100. A condição é aplicada automaticamente quando disponível para o seu CEP.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="accordion__trigger" aria-expanded="false" aria-controls="faq3">
+          Quais formas de pagamento a VANT aceita?
+          <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="accordion__body" id="faq3" hidden>
+          <p>Aceitamos Pix, cartão de crédito, boleto e parcelamento, conforme as opções disponíveis no checkout.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="accordion__trigger" aria-expanded="false" aria-controls="faq4">
+          Como descubro meu tamanho de anel?
+          <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="accordion__body" id="faq4" hidden>
+          <p>Você encontra nosso guia de tamanhos na página do produto. Use um anel que já fique confortável em você para comparar as medidas. <a href="{{ store.url }}/guia-de-tamanhos">Ver guia de tamanhos →</a></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="accordion__trigger" aria-expanded="false" aria-controls="faq5">
+          Como cuidar das minhas peças?
+          <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="accordion__body" id="faq5" hidden>
+          <p>Evite contato direto com água, suor, perfume, cremes, praia e piscina. Guarde suas peças separadamente, em local seco, para preservar o brilho por mais tempo.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="accordion__trigger" aria-expanded="false" aria-controls="faq6">
+          Como acompanho meu pedido?
+          <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="accordion__body" id="faq6" hidden>
+          <p>Assim que seu pedido for enviado, você receberá as informações de rastreio no e-mail cadastrado na compra. Você também pode usar nossa página de <a href="{{ store.url }}/rastrear-pedido">rastreamento de pedido</a>.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="accordion__trigger" aria-expanded="false" aria-controls="faq7">
+          Posso trocar meu pedido?
+          <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="accordion__body" id="faq7" hidden>
+          <p>Consulte as condições de troca e devolução na <a href="{{ store.url }}/trocas-e-devolucoes">página específica</a> ou entre em contato com nosso atendimento.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="faq-footer">
+      <p>Não encontrou o que precisava?</p>
+      <a href="{{ store.url }}/contato" class="btn btn--primary">Falar com a VANT</a>
+    </div>
+
+  </div>
+</div>

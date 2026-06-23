@@ -1,0 +1,290 @@
+{% comment %} Homepage Template {% endcomment %}
+
+<!-- Schema.org WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ store.name }}",
+  "url": "{{ store.url }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ store.url }}/busca?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- ========== HERO ========== -->
+<section class="hero" aria-label="Destaque principal">
+  <div class="hero__media">
+    <!-- Video (replace src with real video URLs from Nuvemshop admin) -->
+    <video
+      class="hero__video hero__video--desktop"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="{{ store.url }}/assets/hero-poster-desktop.jpg"
+      aria-hidden="true"
+    >
+      <source src="{{ 'hero-desktop.mp4' | asset_url }}" type="video/mp4">
+    </video>
+    <video
+      class="hero__video hero__video--mobile"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="{{ store.url }}/assets/hero-poster-mobile.jpg"
+      aria-hidden="true"
+    >
+      <source src="{{ 'hero-mobile.mp4' | asset_url }}" type="video/mp4">
+    </video>
+    <!-- Fallback image if video not provided -->
+    <div class="hero__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero__content container">
+    <div class="hero__text">
+      <h1 class="hero__heading">o&nbsp;detalhe<br>que&nbsp;muda&nbsp;tudo.</h1>
+      <p class="hero__subtext">
+        Peças que elevam o look, destacam sua presença<br>e fazem o básico deixar de ser básico.
+      </p>
+      <div class="hero__ctas">
+        <a href="{{ store.url }}" class="btn btn--primary btn--hero">Comprar agora</a>
+        <a href="{{ store.url }}/brasil-core" class="btn btn--ghost btn--hero">Conhecer Brasil Core</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TRUST BAR ========== -->
+{% include 'trust-bar' %}
+
+<!-- ========== FEATURED CATEGORIES ========== -->
+<section class="section section--categories" aria-labelledby="categoriesHeading">
+  <div class="container">
+    <div class="section-heading">
+      <h2 class="section-heading__title" id="categoriesHeading">Escolha seu detalhe</h2>
+      <p class="section-heading__sub">Anéis, brincos, colares e tudo que faz o básico parecer muito mais pensado.</p>
+    </div>
+
+    <div class="categories-grid" role="list">
+      <a href="{{ store.url }}/aneis" class="category-card" role="listitem">
+        <div class="category-card__image-wrapper">
+          <img
+            class="category-card__image"
+            src="{{ 'cat-aneis.jpg' | asset_url }}"
+            alt="Coleção de anéis VANT"
+            width="400"
+            height="500"
+            loading="lazy"
+          >
+        </div>
+        <div class="category-card__label">
+          <span>Anéis</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </a>
+
+      <a href="{{ store.url }}/brincos" class="category-card" role="listitem">
+        <div class="category-card__image-wrapper">
+          <img class="category-card__image" src="{{ 'cat-brincos.jpg' | asset_url }}" alt="Coleção de brincos VANT" width="400" height="500" loading="lazy">
+        </div>
+        <div class="category-card__label"><span>Brincos</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </a>
+
+      <a href="{{ store.url }}/colares" class="category-card" role="listitem">
+        <div class="category-card__image-wrapper">
+          <img class="category-card__image" src="{{ 'cat-colares.jpg' | asset_url }}" alt="Coleção de colares VANT" width="400" height="500" loading="lazy">
+        </div>
+        <div class="category-card__label"><span>Colares</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </a>
+
+      <a href="{{ store.url }}/pulseiras" class="category-card" role="listitem">
+        <div class="category-card__image-wrapper">
+          <img class="category-card__image" src="{{ 'cat-pulseiras.jpg' | asset_url }}" alt="Coleção de pulseiras VANT" width="400" height="500" loading="lazy">
+        </div>
+        <div class="category-card__label"><span>Pulseiras</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </a>
+
+      <a href="{{ store.url }}/conjuntos" class="category-card" role="listitem">
+        <div class="category-card__image-wrapper">
+          <img class="category-card__image" src="{{ 'cat-conjuntos.jpg' | asset_url }}" alt="Coleção de conjuntos VANT" width="400" height="500" loading="lazy">
+        </div>
+        <div class="category-card__label"><span>Conjuntos</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </a>
+
+      <a href="{{ store.url }}/relogios" class="category-card" role="listitem">
+        <div class="category-card__image-wrapper">
+          <img class="category-card__image" src="{{ 'cat-relogios.jpg' | asset_url }}" alt="Coleção de relógios VANT" width="400" height="500" loading="lazy">
+        </div>
+        <div class="category-card__label"><span>Relógios</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </a>
+
+      <a href="{{ store.url }}/cintos" class="category-card" role="listitem">
+        <div class="category-card__image-wrapper">
+          <img class="category-card__image" src="{{ 'cat-cintos.jpg' | asset_url }}" alt="Coleção de cintos VANT" width="400" height="500" loading="lazy">
+        </div>
+        <div class="category-card__label"><span>Cintos</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BEST SELLERS ========== -->
+<section class="section section--bestsellers" aria-labelledby="bestsellersHeading">
+  <div class="container">
+    <div class="section-heading">
+      <h2 class="section-heading__title" id="bestsellersHeading">Os favoritos da VANT</h2>
+      <p class="section-heading__sub">Peças que conquistaram espaço nos looks e dificilmente saem de cena.</p>
+    </div>
+
+    <div class="products-carousel" id="bestsellersCarousel">
+      {% for product in store.featured_products limit:8 %}
+        {% include 'product-card', product: product %}
+      {% endfor %}
+    </div>
+
+    <div class="section__cta-wrapper">
+      <a href="{{ store.url }}/mais-vendidos" class="btn btn--outline">Ver mais vendidos</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BRASIL CORE BANNER ========== -->
+<section class="brasil-core-banner" aria-label="Coleção Brasil Core">
+  <div class="brasil-core-banner__media">
+    <img
+      class="brasil-core-banner__image"
+      src="{{ 'brasil-core-banner.jpg' | asset_url }}"
+      alt="Brasil Core — Peças com calor, cor e personalidade"
+      width="1440"
+      height="680"
+      loading="lazy"
+    >
+    <div class="brasil-core-banner__overlay" aria-hidden="true"></div>
+  </div>
+  <div class="brasil-core-banner__content container">
+    <div class="brasil-core-banner__text">
+      <span class="brasil-core-banner__eyebrow">Coleção exclusiva</span>
+      <h2 class="brasil-core-banner__title">Brasil Core</h2>
+      <p class="brasil-core-banner__sub">Calor, cor e presença em peças feitas para transformar qualquer produção.</p>
+      <a href="{{ store.url }}/brasil-core" class="btn btn--primary">Explorar a coleção</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== NOVIDADES ========== -->
+<section class="section section--new-arrivals" aria-labelledby="newArrivalsHeading">
+  <div class="container">
+    <div class="section-heading">
+      <h2 class="section-heading__title" id="newArrivalsHeading">Chegaram agora</h2>
+      <p class="section-heading__sub">Chegaram agora para ocupar o lugar que faltava no seu porta-joias.</p>
+    </div>
+
+    <div class="products-grid products-grid--4col">
+      {% for product in store.new_products limit:8 %}
+        {% include 'product-card', product: product %}
+      {% else %}
+        {% for product in store.featured_products limit:8 %}
+          {% include 'product-card', product: product %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+    <div class="section__cta-wrapper">
+      <a href="{{ store.url }}/novidades" class="btn btn--outline">Explorar novidades</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONVERSION BLOCK ========== -->
+<section class="conversion-block" aria-labelledby="conversionHeading">
+  <div class="conversion-block__inner container">
+    <h2 class="conversion-block__title" id="conversionHeading">
+      Seu look já está pronto.<br>Falta o detalhe.
+    </h2>
+    <p class="conversion-block__text">
+      Para aparecer sem precisar pedir atenção. A sua assinatura começa nos detalhes.
+    </p>
+    <a href="{{ store.url }}" class="btn btn--primary btn--lg">Encontrar minha peça</a>
+  </div>
+</section>
+
+<!-- ========== INSTAGRAM FEED ========== -->
+<section class="section section--instagram" aria-labelledby="instagramHeading">
+  <div class="container">
+    <div class="section-heading">
+      <h2 class="section-heading__title" id="instagramHeading">VANT no seu feed</h2>
+      <p class="section-heading__sub">Siga <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="link--underline">@getvant_com</a> e veja como as peças ganham vida nos looks.</p>
+    </div>
+
+    <div class="instagram-grid" id="instagramGrid" aria-label="Feed do Instagram">
+      <!-- Slots for manual or integration photos -->
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item" aria-label="Ver post no Instagram">
+        <img src="{{ 'instagram-1.jpg' | asset_url }}" alt="VANT no Instagram" width="300" height="300" loading="lazy">
+      </a>
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item" aria-label="Ver post no Instagram">
+        <img src="{{ 'instagram-2.jpg' | asset_url }}" alt="VANT no Instagram" width="300" height="300" loading="lazy">
+      </a>
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item" aria-label="Ver post no Instagram">
+        <img src="{{ 'instagram-3.jpg' | asset_url }}" alt="VANT no Instagram" width="300" height="300" loading="lazy">
+      </a>
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item" aria-label="Ver post no Instagram">
+        <img src="{{ 'instagram-4.jpg' | asset_url }}" alt="VANT no Instagram" width="300" height="300" loading="lazy">
+      </a>
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item instagram-grid__item--hidden-mobile" aria-label="Ver post no Instagram">
+        <img src="{{ 'instagram-5.jpg' | asset_url }}" alt="VANT no Instagram" width="300" height="300" loading="lazy">
+      </a>
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item instagram-grid__item--hidden-mobile" aria-label="Ver post no Instagram">
+        <img src="{{ 'instagram-6.jpg' | asset_url }}" alt="VANT no Instagram" width="300" height="300" loading="lazy">
+      </a>
+    </div>
+
+    <div class="section__cta-wrapper">
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="btn btn--outline">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+        </svg>
+        Seguir no Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== NEWSLETTER ========== -->
+<section class="newsletter-section" aria-labelledby="newsletterHeading">
+  <div class="container">
+    <div class="newsletter-section__inner">
+      <div class="newsletter-section__text">
+        <h2 class="newsletter-section__title" id="newsletterHeading">Entre para a lista VANT</h2>
+        <p class="newsletter-section__sub">Novidades, lançamentos e condições especiais direto no seu e-mail. Sem excesso. Só o que vale abrir.</p>
+      </div>
+      <form class="newsletter-form" action="{{ store.url }}/newsletter" method="post" novalidate>
+        <div class="newsletter-form__group">
+          <label for="newsletterEmail" class="sr-only">Seu melhor e-mail</label>
+          <input
+            type="email"
+            id="newsletterEmail"
+            name="email"
+            placeholder="Seu melhor e-mail"
+            autocomplete="email"
+            required
+            class="newsletter-form__input"
+            aria-required="true"
+          >
+          <button type="submit" class="newsletter-form__btn">Quero receber</button>
+        </div>
+        <p class="newsletter-form__success" aria-live="polite" hidden>
+          Pronto. Agora você está mais perto do seu próximo detalhe favorito.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>

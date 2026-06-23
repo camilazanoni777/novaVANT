@@ -1,0 +1,213 @@
+{% comment %} Category / Collection Template {% endcomment %}
+
+<div class="page-category">
+  <div class="container">
+
+    {% include 'breadcrumbs' %}
+
+    <!-- Category header -->
+    <header class="category-header">
+      <h1 class="category-header__title">{{ category.name }}</h1>
+      {% if category.description %}
+      <p class="category-header__description">{{ category.description }}</p>
+      {% else %}
+        {% case category.handle %}
+          {% when 'aneis' %}
+          <p class="category-header__description">Anéis que fazem uma mão bem escolhida dizer tudo.</p>
+          {% when 'brincos' %}
+          <p class="category-header__description">Brincos para deixar qualquer look com mais presença.</p>
+          {% when 'colares' %}
+          <p class="category-header__description">Camadas, pontos de brilho e detalhes que mudam o olhar.</p>
+          {% when 'pulseiras' %}
+          <p class="category-header__description">Peças que acompanham seus gestos e assinam o look.</p>
+          {% when 'conjuntos' %}
+          <p class="category-header__description">Combinações prontas para quem gosta de impacto sem esforço.</p>
+          {% when 'relogios' %}
+          <p class="category-header__description">Relógios que fazem do tempo parte do look.</p>
+          {% when 'cintos' %}
+          <p class="category-header__description">O detalhe que desenha a produção inteira.</p>
+          {% when 'brasil-core' %}
+          <p class="category-header__description">Peças com calor, cor e personalidade para serem vistas.</p>
+          {% when 'mais-vendidos' %}
+          <p class="category-header__description">Peças que conquistaram espaço nos looks e dificilmente saem de cena.</p>
+          {% when 'novidades' %}
+          <p class="category-header__description">Chegaram agora para ocupar o lugar que faltava no seu porta-joias.</p>
+        {% endcase %}
+      {% endif %}
+      <p class="category-header__count" aria-live="polite">
+        <span id="productsCount">{{ category.products_count }}</span> peças
+      </p>
+    </header>
+
+    <div class="category-layout">
+
+      <!-- ========== FILTERS SIDEBAR ========== -->
+      <aside class="filters-sidebar" id="filtersSidebar" aria-label="Filtros de produtos">
+        <div class="filters-sidebar__header">
+          <h2 class="filters-sidebar__title">Filtrar</h2>
+          <button class="filters-sidebar__close" id="filtersClose" aria-label="Fechar filtros">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <form class="filters-form" id="filtersForm" method="get">
+
+          <!-- Filter: Category -->
+          {% if store.categories.size > 0 %}
+          <div class="filter-group">
+            <button class="filter-group__trigger accordion__trigger" aria-expanded="true" aria-controls="filterCategories">
+              Categoria
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="filter-group__options" id="filterCategories">
+              {% for cat in store.categories limit:10 %}
+              <label class="filter-option">
+                <input type="checkbox" name="categoria" value="{{ cat.handle }}" class="filter-option__input"{% if category.handle == cat.handle %} checked{% endif %}>
+                <span class="filter-option__label">{{ cat.name }}</span>
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Filter: Acabamento -->
+          <div class="filter-group">
+            <button class="filter-group__trigger accordion__trigger" aria-expanded="true" aria-controls="filterFinish">
+              Acabamento
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="filter-group__options" id="filterFinish">
+              <label class="filter-option filter-option--swatch">
+                <input type="checkbox" name="acabamento" value="dourado" class="filter-option__input">
+                <span class="filter-swatch filter-swatch--dourado" aria-label="Dourado"></span>
+                <span class="filter-option__label">Dourado</span>
+              </label>
+              <label class="filter-option filter-option--swatch">
+                <input type="checkbox" name="acabamento" value="prata" class="filter-option__input">
+                <span class="filter-swatch filter-swatch--prata" aria-label="Prata"></span>
+                <span class="filter-option__label">Prata</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Filter: Price -->
+          <div class="filter-group">
+            <button class="filter-group__trigger accordion__trigger" aria-expanded="true" aria-controls="filterPrice">
+              Faixa de preço
+              <svg class="accordion__icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="filter-group__options" id="filterPrice">
+              <label class="filter-option">
+                <input type="radio" name="preco" value="0-100" class="filter-option__input">
+                <span class="filter-option__label">Até R$100</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="preco" value="100-200" class="filter-option__input">
+                <span class="filter-option__label">R$100 a R$200</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="preco" value="200-500" class="filter-option__input">
+                <span class="filter-option__label">R$200 a R$500</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="preco" value="500+" class="filter-option__input">
+                <span class="filter-option__label">Acima de R$500</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Filter: Availability -->
+          <div class="filter-group">
+            <label class="filter-option">
+              <input type="checkbox" name="disponibilidade" value="em_estoque" class="filter-option__input">
+              <span class="filter-option__label">Somente disponíveis</span>
+            </label>
+          </div>
+
+          <div class="filter-group__actions">
+            <button type="submit" class="btn btn--primary btn--sm btn--full">Aplicar filtros</button>
+            <a href="{{ category.url }}" class="btn btn--ghost btn--sm btn--full">Limpar filtros</a>
+          </div>
+        </form>
+      </aside>
+
+      <!-- ========== PRODUCTS ========== -->
+      <div class="category-products">
+
+        <!-- Sort + mobile filter toggle -->
+        <div class="category-toolbar">
+          <button class="category-toolbar__filter-toggle btn btn--ghost btn--sm" id="filtersToggle" aria-expanded="false" aria-controls="filtersSidebar">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 4H14M4 8H12M6 12H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Filtrar
+          </button>
+
+          <div class="category-toolbar__sort">
+            <label for="sortSelect" class="sr-only">Ordenar por</label>
+            <select id="sortSelect" name="sort" class="sort-select" aria-label="Ordenar produtos">
+              <option value="">Ordenar por</option>
+              <option value="featured" {% if sort == 'featured' %}selected{% endif %}>Mais vendidos</option>
+              <option value="date-desc" {% if sort == 'date-desc' %}selected{% endif %}>Novidades</option>
+              <option value="price-asc" {% if sort == 'price-asc' %}selected{% endif %}>Menor preço</option>
+              <option value="price-desc" {% if sort == 'price-desc' %}selected{% endif %}>Maior preço</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products grid -->
+        <div class="products-grid products-grid--4col" id="productsGrid" aria-live="polite" aria-busy="false">
+          {% for product in category.products %}
+            {% include 'product-card', product: product %}
+          {% else %}
+          <div class="products-empty">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <circle cx="24" cy="20" r="10" stroke="#C7A879" stroke-width="1.5"/>
+              <path d="M14 40C14 34.48 18.48 30 24 30C29.52 30 34 34.48 34 40" stroke="#C7A879" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <h2 class="products-empty__title">Nenhuma peça encontrada</h2>
+            <p class="products-empty__text">Tente outros filtros ou explore nossas coleções.</p>
+            <a href="{{ store.url }}" class="btn btn--primary btn--sm">Ver todos os produtos</a>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Load more / Pagination -->
+        {% if paginate.pages > 1 %}
+        <nav class="pagination" aria-label="Navegação de páginas">
+          {% if paginate.previous %}
+          <a href="{{ paginate.previous.url }}" class="pagination__btn" aria-label="Página anterior">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          {% endif %}
+
+          {% for page in paginate.pages %}
+          <a href="{{ page.url }}" class="pagination__num{% if page.is_current %} is-current{% endif %}" aria-label="Página {{ page.title }}" {% if page.is_current %}aria-current="page"{% endif %}>
+            {{ page.title }}
+          </a>
+          {% endfor %}
+
+          {% if paginate.next %}
+          <a href="{{ paginate.next.url }}" class="pagination__btn" aria-label="Próxima página">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          {% endif %}
+        </nav>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>

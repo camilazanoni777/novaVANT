@@ -1,0 +1,62 @@
+{% comment %} Search Results Template {% endcomment %}
+
+<div class="page-search">
+  <div class="container">
+
+    {% include 'breadcrumbs' %}
+
+    <header class="search-header">
+      <h1 class="search-header__title">
+        {% if search.results_count > 0 %}
+          {{ search.results_count }} resultado{% if search.results_count != 1 %}s{% endif %} para "{{ search.query }}"
+        {% else %}
+          Nenhum resultado para "{{ search.query }}"
+        {% endif %}
+      </h1>
+    </header>
+
+    {% if search.results_count > 0 %}
+    <div class="products-grid products-grid--4col">
+      {% for product in search.results %}
+        {% include 'product-card', product: product %}
+      {% endfor %}
+    </div>
+
+    {% if paginate.pages > 1 %}
+    <nav class="pagination" aria-label="Navegação de páginas de busca">
+      {% if paginate.previous %}
+      <a href="{{ paginate.previous.url }}" class="pagination__btn" aria-label="Anterior">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+      {% endif %}
+      {% for page in paginate.pages %}
+      <a href="{{ page.url }}" class="pagination__num{% if page.is_current %} is-current{% endif %}" aria-label="Página {{ page.title }}" {% if page.is_current %}aria-current="page"{% endif %}>{{ page.title }}</a>
+      {% endfor %}
+      {% if paginate.next %}
+      <a href="{{ paginate.next.url }}" class="pagination__btn" aria-label="Próxima">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+      {% endif %}
+    </nav>
+    {% endif %}
+
+    {% else %}
+    <div class="search-empty">
+      <p class="search-empty__text">Não encontramos nada com esse termo. Tente buscar por categoria ou nome da peça.</p>
+      <div class="search-empty__tags">
+        <a href="{{ store.url }}/aneis" class="search-tag">Anéis</a>
+        <a href="{{ store.url }}/colares" class="search-tag">Colares</a>
+        <a href="{{ store.url }}/brincos" class="search-tag">Brincos</a>
+        <a href="{{ store.url }}/pulseiras" class="search-tag">Pulseiras</a>
+        <a href="{{ store.url }}/mais-vendidos" class="search-tag">Mais vendidos</a>
+        <a href="{{ store.url }}/novidades" class="search-tag">Novidades</a>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>

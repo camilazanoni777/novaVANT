@@ -1,0 +1,99 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="footer__inner container">
+
+    <!-- Footer top: brand + links -->
+    <div class="footer__top">
+      <!-- Brand column -->
+      <div class="footer__brand">
+        <a href="{{ store.url }}" class="footer__logo" aria-label="{{ store.name }} — página inicial">
+          <img src="{{ 'logo-vant.png' | asset_url }}" alt="{{ store.name }}" class="footer__logo-img" width="120" height="40" loading="lazy">
+        </a>
+        <p class="footer__slogan">O detalhe que muda tudo.</p>
+        <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="footer__instagram" aria-label="Seguir VANT no Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          </svg>
+          @getvant_com
+        </a>
+      </div>
+
+      <!-- Links columns -->
+      <nav class="footer__nav" aria-label="Links do rodapé">
+        <div class="footer__nav-col">
+          <h3 class="footer__nav-title">Coleções</h3>
+          <ul role="list">
+            <li><a href="{{ store.url }}/aneis" class="footer__nav-link">Anéis</a></li>
+            <li><a href="{{ store.url }}/colares" class="footer__nav-link">Colares</a></li>
+            <li><a href="{{ store.url }}/brincos" class="footer__nav-link">Brincos</a></li>
+            <li><a href="{{ store.url }}/pulseiras" class="footer__nav-link">Pulseiras</a></li>
+            <li><a href="{{ store.url }}/conjuntos" class="footer__nav-link">Conjuntos</a></li>
+            <li><a href="{{ store.url }}/relogios" class="footer__nav-link">Relógios</a></li>
+            <li><a href="{{ store.url }}/cintos" class="footer__nav-link">Cintos</a></li>
+            <li><a href="{{ store.url }}/brasil-core" class="footer__nav-link footer__nav-link--featured">Brasil Core</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__nav-col">
+          <h3 class="footer__nav-title">Ajuda</h3>
+          <ul role="list">
+            <li><a href="{{ store.url }}/contato" class="footer__nav-link">Contato</a></li>
+            <li><a href="{{ store.url }}/faq" class="footer__nav-link">FAQ</a></li>
+            <li><a href="{{ store.url }}/guia-de-tamanhos" class="footer__nav-link">Guia de tamanhos</a></li>
+            <li><a href="{{ store.url }}/trocas-e-devolucoes" class="footer__nav-link">Trocas e devoluções</a></li>
+            <li><a href="{{ store.url }}/rastrear-pedido" class="footer__nav-link">Rastrear pedido</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__nav-col">
+          <h3 class="footer__nav-title">A loja</h3>
+          <ul role="list">
+            <li><a href="{{ store.url }}/politica-de-privacidade" class="footer__nav-link">Política de privacidade</a></li>
+            <li><a href="{{ store.url }}/termos-de-uso" class="footer__nav-link">Termos de uso</a></li>
+            <li><a href="{{ store.url }}/mais-vendidos" class="footer__nav-link">Mais Vendidos</a></li>
+            <li><a href="{{ store.url }}/novidades" class="footer__nav-link">Novidades</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Newsletter in footer -->
+      <div class="footer__newsletter">
+        <h3 class="footer__newsletter-title">Entre para a lista VANT</h3>
+        <p class="footer__newsletter-text">Novidades, lançamentos e condições especiais direto no seu e-mail. Sem excesso. Só o que vale abrir.</p>
+        <form class="footer__newsletter-form" action="{{ store.url }}/newsletter" method="post" novalidate>
+          <div class="newsletter-form__group">
+            <label for="footerEmail" class="sr-only">Seu melhor e-mail</label>
+            <input
+              type="email"
+              id="footerEmail"
+              name="email"
+              placeholder="Seu melhor e-mail"
+              autocomplete="email"
+              required
+              class="newsletter-form__input"
+              aria-required="true"
+            >
+            <button type="submit" class="newsletter-form__btn">Quero receber</button>
+          </div>
+          <p class="newsletter-form__success" aria-live="polite" hidden>
+            Pronto. Agora você está mais perto do seu próximo detalhe favorito.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer bottom: legal -->
+    <div class="footer__bottom">
+      <p class="footer__legal">
+        &copy; {{ 'now' | date: '%Y' }} VANT. Todos os direitos reservados.
+      </p>
+      <div class="footer__payment-icons" aria-label="Formas de pagamento aceitas">
+        <span class="payment-icon" title="Pix">Pix</span>
+        <span class="payment-icon" title="Cartão de crédito">Cartão</span>
+        <span class="payment-icon" title="Boleto">Boleto</span>
+      </div>
+    </div>
+
+  </div>
+</footer>

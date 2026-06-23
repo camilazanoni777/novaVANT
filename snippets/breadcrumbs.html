@@ -1,0 +1,52 @@
+{% comment %}
+  Breadcrumbs Snippet
+  Includes schema.org BreadcrumbList markup
+{% endcomment %}
+
+<nav class="breadcrumbs" aria-label="Localização atual">
+  <ol class="breadcrumbs__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="{{ store.url }}" class="breadcrumbs__link" itemprop="item" aria-label="Página inicial">
+        <span itemprop="name">Início</span>
+      </a>
+      <meta itemprop="position" content="1">
+    </li>
+
+    {% if template == 'product' %}
+      {% if product.categories.first %}
+      <li class="breadcrumbs__item breadcrumbs__sep" aria-hidden="true"></li>
+      <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a href="{{ product.categories.first.url }}" class="breadcrumbs__link" itemprop="item">
+          <span itemprop="name">{{ product.categories.first.name }}</span>
+        </a>
+        <meta itemprop="position" content="2">
+      </li>
+      {% endif %}
+      <li class="breadcrumbs__item breadcrumbs__sep" aria-hidden="true"></li>
+      <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span class="breadcrumbs__current" itemprop="name" aria-current="page">{{ product.name }}</span>
+        <meta itemprop="position" content="3">
+      </li>
+
+    {% elsif template == 'category' %}
+      <li class="breadcrumbs__item breadcrumbs__sep" aria-hidden="true"></li>
+      <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span class="breadcrumbs__current" itemprop="name" aria-current="page">{{ category.name }}</span>
+        <meta itemprop="position" content="2">
+      </li>
+
+    {% elsif template == 'search' %}
+      <li class="breadcrumbs__item breadcrumbs__sep" aria-hidden="true"></li>
+      <li class="breadcrumbs__item">
+        <span class="breadcrumbs__current" aria-current="page">Busca: {{ search.query }}</span>
+      </li>
+
+    {% elsif template == 'page' %}
+      <li class="breadcrumbs__item breadcrumbs__sep" aria-hidden="true"></li>
+      <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <span class="breadcrumbs__current" itemprop="name" aria-current="page">{{ page.name }}</span>
+        <meta itemprop="position" content="2">
+      </li>
+    {% endif %}
+  </ol>
+</nav>

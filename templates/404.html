@@ -1,0 +1,22 @@
+{% comment %} 404 Not Found Template {% endcomment %}
+
+<div class="page-404">
+  <div class="container">
+    <div class="page-404__content">
+      <div class="page-404__icon" aria-hidden="true">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="32" r="18" stroke="#C7A879" stroke-width="1.5"/>
+          <path d="M28 62C28 55.37 33.37 50 40 50C46.63 50 52 55.37 52 62" stroke="#C7A879" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M36 28L44 36M44 28L36 36" stroke="#C7A879" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="page-404__code">404</p>
+      <h1 class="page-404__title">Página não encontrada</h1>
+      <p class="page-404__text">A peça que você procura pode ter saído de cena. Mas temos muitas outras esperando por você.</p>
+      <div class="page-404__ctas">
+        <a href="{{ store.url }}" class="btn btn--primary">Voltar para a loja</a>
+        <a href="{{ store.url }}/mais-vendidos" class="btn btn--outline">Ver mais vendidos</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+{% comment %} Generic Page Template {% endcomment %}
+
+<div class="page-generic">
+  <div class="container container--narrow">
+
+    {% include 'breadcrumbs' %}
+
+    <header class="page-header">
+      <h1 class="page-header__title">{{ page.name }}</h1>
+    </header>
+
+    <div class="rte page-content">
+      {{ page.content }}
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VANT Fine Jewelry — Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css">
+  <style>
+    /* ────────────────────────────────
+       Preview overrides & placeholders
+    ──────────────────────────────────*/
+    .prod-ph { width:100%;height:100%;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-lg); }
+    .prod-ph svg { opacity:.18; }
+    .cat-ph { width:100%;height:100%;display:flex;align-items:flex-end;padding:0; }
+    .hero-ph { position:absolute;inset:0;display:flex;align-items:center;justify-content:center; }
+    .hero-ph__bg { position:absolute;inset:0;background:linear-gradient(135deg,#F3E5E1 0%,#E9DDD1 45%,#D8BC8A 100%); }
+    .hero-ph__orb { position:absolute;width:65%;padding-bottom:65%;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(216,188,138,.55) 0%,rgba(233,221,209,.25) 55%,transparent 100%); }
+    .hero-ph__ring { position:absolute;border-radius:50%;border:1px solid rgba(185,148,94,.22); }
+    .hero-ph__ring--1{inset:8%} .hero-ph__ring--2{inset:20%;border-width:.5px} .hero-ph__ring--3{inset:33%;border-width:.5px;border-color:rgba(185,148,94,.12)}
+    .hero-ph__gem { position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);filter:drop-shadow(0 8px 24px rgba(185,148,94,.4)); }
+    .hero-ph__caption { position:absolute;bottom:var(--space-8);left:50%;transform:translateX(-50%);background:rgba(255,255,255,.75);backdrop-filter:blur(12px);border:1px solid rgba(185,148,94,.25);border-radius:var(--radius-xl);padding:var(--space-4) var(--space-6);text-align:center;white-space:nowrap;box-shadow:var(--shadow-md); }
+    .hero-ph__caption strong { display:block;font-family:var(--font-serif);font-size:var(--text-lg);font-style:italic;color:var(--color-text); }
+    .hero-ph__caption span { font-size:var(--text-xs);color:var(--color-gold-dark);font-weight:600;letter-spacing:.08em; }
+    .cat-aneis    { background: linear-gradient(160deg, #EFF5ED, #C4D9BF); }
+    .cat-brincos  { background: linear-gradient(160deg, #EAF2E7, #BCCDB6); }
+    .cat-colares  { background: linear-gradient(160deg, #E5EFE2, #B6C9B0); }
+    .cat-pulseiras{ background: linear-gradient(160deg, #E0ECDC, #AFC4A8); }
+    .cat-conjuntos{ background: linear-gradient(160deg, #DAEAD5, #A6BDA0); }
+    .cat-relogios { background: linear-gradient(160deg, #D4E6CE, #9CB697); }
+    .pr1{background:linear-gradient(145deg,#f8ede8,#f0d8d0)} .pr2{background:linear-gradient(145deg,#f8f2e2,#ede0c0)} .pr3{background:linear-gradient(145deg,#eaf0ea,#ccdece)} .pr4{background:linear-gradient(145deg,#f0ecf8,#ddd6ec)} .pr5{background:linear-gradient(145deg,#f0f0e8,#dddacc)} .pr6{background:linear-gradient(145deg,#f8e8ee,#edd0da)}
+    .bc-ph{position:absolute;inset:0;background:linear-gradient(120deg,#E9DDD1 0%,#D8BC8A 55%,#B9945E 100%);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .bc-ph__pattern{position:absolute;inset:0;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='white'/%3E%3Ccircle cx='0' cy='0' r='1' fill='white'/%3E%3Ccircle cx='40' cy='40' r='1' fill='white'/%3E%3C/svg%3E")}
+    .bc-ph__icon{position:relative;z-index:1;filter:drop-shadow(0 8px 32px rgba(0,0,0,.2))}
+    .st-ph{position:absolute;inset:0;background:linear-gradient(145deg,#F3E5E1,#E9DDD1 60%,#D8BC8A);display:flex;align-items:center;justify-content:center}
+    .st-ph__icon{opacity:.3}
+    .ig-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+    .ig1{background:linear-gradient(145deg,#f5e8eb,#e8ccd0)} .ig2{background:linear-gradient(145deg,#f5f0e4,#e8d8b2)} .ig3{background:linear-gradient(145deg,#e8ede8,#ccdccc)} .ig4{background:linear-gradient(145deg,#ede8f0,#d4cce8)} .ig5{background:linear-gradient(145deg,#f0ede8,#ddd0c8)} .ig6{background:linear-gradient(145deg,#e8f0ec,#c8dcd4)}
+    .preview-note{position:fixed;bottom:80px;right:16px;z-index:9999;background:var(--color-text);color:rgba(255,255,255,.8);font-size:10px;font-family:var(--font-sans);letter-spacing:.04em;padding:8px 12px;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);max-width:180px;line-height:1.6}
+    .preview-note strong{display:block;color:var(--color-gold-light);font-size:11px;margin-bottom:2px}
+    /* Preview: top-bar e benefits-bar ficam em verde musgo via theme.css */
+  </style>
+</head>
+<body class="template-index">
+
+<div class="preview-note">
+  <strong>Preview local</strong>
+  Fotos substituídas por placeholders de cor. O site real usa as imagens da Nuvemshop.
+</div>
+
+<a href="#main" class="skip-link">Ir ao conteúdo</a>
+
+<!-- TOP BAR -->
+<div class="top-bar" role="banner">
+  <div class="top-bar__inner">
+    <p class="top-bar__text--desktop">✦ Frete grátis em compras acima de R$100 — Envio rápido para todo o Brasil ✦</p>
+    <div class="top-bar__slider" aria-live="polite">
+      <div class="top-bar__slides" id="topBarSlides">
+        <p class="top-bar__slide is-active">Frete grátis acima de R$100</p>
+        <p class="top-bar__slide">Envio rápido para todo o Brasil</p>
+        <p class="top-bar__slide">Pagamento seguro via Pix, cartão ou boleto</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header" id="siteHeader" role="banner">
+  <div class="header__inner container">
+    <button class="header__menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menu">
+      <span class="hamburger"><span></span><span></span><span></span></span>
+    </button>
+    <a href="#" class="header__logo" aria-label="VANT — página inicial">
+      <svg class="header__logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" role="img" aria-label="VANT" focusable="false">
+        <defs>
+          <linearGradient id="vhf-gl" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0"  stop-color="#B9945E" stop-opacity="0"/>
+            <stop offset=".4" stop-color="#B9945E" stop-opacity=".85"/>
+            <stop offset=".6" stop-color="#B9945E" stop-opacity=".85"/>
+            <stop offset="1"  stop-color="#B9945E" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path class="vhf-glow vhf-glow-loop" d="M110 5 L122 12 L126 23 L122 34 L110 41 L98 34 L94 23 L98 12 Z"/>
+        <path class="vhf-gem"                d="M110 5 L122 12 L126 23 L122 34 L110 41 L98 34 L94 23 L98 12 Z"/>
+        <line class="vhf-facet vhf-f1" x1="94"  y1="23" x2="126" y2="23"/>
+        <line class="vhf-facet vhf-f2" x1="110" y1="5"  x2="110" y2="41"/>
+        <line class="vhf-facet vhf-f3" x1="110" y1="5"  x2="98"  y2="34"/>
+        <line class="vhf-facet vhf-f4" x1="110" y1="5"  x2="122" y2="34"/>
+        <line class="vhf-inner" x1="98"  y1="12" x2="110" y2="41"/>
+        <line class="vhf-inner" x1="122" y1="12" x2="98"  y2="34"/>
+        <line class="vhf-ext vhf-ll" x1="94"  y1="23" x2="18"  y2="23" stroke="url(#vhf-gl)" stroke-width=".5"/>
+        <line class="vhf-ext vhf-lr" x1="126" y1="23" x2="202" y2="23" stroke="url(#vhf-gl)" stroke-width=".5"/>
+        <g class="vhf-jewel" style="transform-box:fill-box;transform-origin:110px 5px">
+          <polygon points="110,1 113,5 110,9 107,5" fill="none" stroke="#B9945E" stroke-width=".8"/>
+          <circle cx="110" cy="5" r="1.5" fill="#B9945E"/>
+        </g>
+        <text class="vhf-wm" x="110" y="64"
+          font-family="'Cormorant Garamond', Cormorant, Georgia, serif"
+          font-size="26" font-weight="300"
+          fill="#2A2522" text-anchor="middle" letter-spacing="8">VANT</text>
+      </svg>
+    </a>
+    <nav class="header__nav" aria-label="Navegação principal">
+      <ul class="nav__list" role="list">
+        <li class="nav__item nav__item--dropdown">
+          <a href="#" class="nav__link" aria-haspopup="true" aria-expanded="false">
+            Coleções <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </a>
+          <div class="nav__dropdown">
+            <div class="nav__dropdown-inner">
+              <a href="#" class="nav__dropdown-link">Anéis</a>
+              <a href="#" class="nav__dropdown-link">Brincos</a>
+              <a href="#" class="nav__dropdown-link">Colares</a>
+              <a href="#" class="nav__dropdown-link">Pulseiras</a>
+              <a href="#" class="nav__dropdown-link">Conjuntos</a>
+              <a href="#" class="nav__dropdown-link">Relógios</a>
+              <a href="#" class="nav__dropdown-link">Cintos</a>
+              <a href="#" class="nav__dropdown-link nav__dropdown-link--featured">Brasil Core ✦</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav__item"><a href="#" class="nav__link">Mais Vendidos</a></li>
+        <li class="nav__item"><a href="#" class="nav__link">Novidades</a></li>
+        <li class="nav__item"><a href="#" class="nav__link nav__link--highlight">Brasil Core</a></li>
+      </ul>
+    </nav>
+    <div class="header__actions">
+      <button class="header__action-btn" id="searchToggle" aria-label="Buscar" aria-expanded="false">
+        <svg width="19" height="19" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M14 14L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <button class="header__action-btn" aria-label="Favoritos">
+        <svg width="19" height="19" viewBox="0 0 20 20" fill="none"><path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span class="wishlist-count" id="wishlistCount" style="display:none">0</span>
+      </button>
+      <a href="#" class="header__action-btn header__action-btn--account" aria-label="Minha conta">
+        <svg width="19" height="19" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M3 18C3 14.686 6.134 12 10 12C13.866 12 17 14.686 17 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </a>
+      <button class="header__action-btn header__cart-btn" id="cartToggle" aria-label="Carrinho" aria-expanded="false">
+        <svg width="19" height="19" viewBox="0 0 20 20" fill="none"><path d="M2 2H3.5L5.5 13H15L17 5H5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="16.5" r="1" fill="currentColor"/><circle cx="13" cy="16.5" r="1" fill="currentColor"/></svg>
+        <span class="cart-count" id="cartCount" style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile Menu -->
+  <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu__inner">
+      <div class="mobile-menu__header">
+        <a href="#" class="mobile-menu__logo" aria-label="VANT">
+          <svg class="header__logo-svg header__logo-svg--sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 70" role="img" aria-label="VANT" focusable="false">
+            <defs>
+              <linearGradient id="vhf-gl-m" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0"  stop-color="#B9945E" stop-opacity="0"/>
+                <stop offset=".4" stop-color="#B9945E" stop-opacity=".85"/>
+                <stop offset=".6" stop-color="#B9945E" stop-opacity=".85"/>
+                <stop offset="1"  stop-color="#B9945E" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path class="vhf-glow" d="M110 5 L122 12 L126 23 L122 34 L110 41 L98 34 L94 23 L98 12 Z"/>
+            <path class="vhf-gem"  d="M110 5 L122 12 L126 23 L122 34 L110 41 L98 34 L94 23 L98 12 Z"/>
+            <line class="vhf-facet vhf-f1" x1="94"  y1="23" x2="126" y2="23"/>
+            <line class="vhf-facet vhf-f2" x1="110" y1="5"  x2="110" y2="41"/>
+            <line class="vhf-facet vhf-f3" x1="110" y1="5"  x2="98"  y2="34"/>
+            <line class="vhf-facet vhf-f4" x1="110" y1="5"  x2="122" y2="34"/>
+            <line class="vhf-inner" x1="98"  y1="12" x2="110" y2="41"/>
+            <line class="vhf-inner" x1="122" y1="12" x2="98"  y2="34"/>
+            <line class="vhf-ext vhf-ll" x1="94"  y1="23" x2="18"  y2="23" stroke="url(#vhf-gl-m)" stroke-width=".5"/>
+            <line class="vhf-ext vhf-lr" x1="126" y1="23" x2="202" y2="23" stroke="url(#vhf-gl-m)" stroke-width=".5"/>
+            <g class="vhf-jewel" style="transform-box:fill-box;transform-origin:110px 5px">
+              <polygon points="110,1 113,5 110,9 107,5" fill="none" stroke="#B9945E" stroke-width=".8"/>
+              <circle cx="110" cy="5" r="1.5" fill="#B9945E"/>
+            </g>
+            <text class="vhf-wm" x="110" y="64"
+              font-family="'Cormorant Garamond', Cormorant, Georgia, serif"
+              font-size="26" font-weight="300"
+              fill="#2A2522" text-anchor="middle" letter-spacing="8">VANT</text>
+          </svg>
+        </a>
+        <button class="mobile-menu__close" id="menuClose" aria-label="Fechar menu">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <ul class="mobile-nav" role="list">
+        <li class="mobile-nav__item">
+          <button class="mobile-nav__toggle" aria-expanded="false" aria-controls="mobileSubColecoes">
+            Coleções <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <ul class="mobile-nav__submenu" id="mobileSubColecoes" hidden>
+            <li><a href="#" class="mobile-nav__sublink">Anéis</a></li>
+            <li><a href="#" class="mobile-nav__sublink">Brincos</a></li>
+            <li><a href="#" class="mobile-nav__sublink">Colares</a></li>
+            <li><a href="#" class="mobile-nav__sublink">Pulseiras</a></li>
+            <li><a href="#" class="mobile-nav__sublink">Conjuntos</a></li>
+            <li><a href="#" class="mobile-nav__sublink mobile-nav__sublink--featured">Brasil Core</a></li>
+          </ul>
+        </li>
+        <li class="mobile-nav__item"><a href="#" class="mobile-nav__link">Mais Vendidos</a></li>
+        <li class="mobile-nav__item"><a href="#" class="mobile-nav__link">Novidades</a></li>
+        <li class="mobile-nav__item"><a href="#" class="mobile-nav__link mobile-nav__link--highlight">Brasil Core</a></li>
+      </ul>
+      <div class="mobile-menu__footer">
+        <a href="#" class="mobile-menu__footer-link">Minha conta</a>
+        <a href="#" class="mobile-menu__footer-link">Rastrear pedido</a>
+        <a href="#" class="mobile-menu__footer-link">Contato</a>
+        <a href="#" class="mobile-menu__footer-link">@getvant_com</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- CART DRAWER -->
+<aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Carrinho" aria-hidden="true">
+  <div class="cart-drawer__header">
+    <h2 class="cart-drawer__title">Sua sacola</h2>
+    <button class="cart-drawer__close" id="cartDrawerClose" aria-label="Fechar">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="cart-drawer__shipping-bar">
+    <div class="shipping-bar__track"><div class="shipping-bar__fill" id="shippingBarFill" style="width:0"></div></div>
+    <p class="shipping-bar__text">Falta <strong id="shippingBarAmount">R$100,00</strong> para frete grátis ✦</p>
+  </div>
+  <div class="cart-drawer__body">
+    <div class="cart-drawer__empty" id="cartDrawerEmpty">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><path d="M4 4H9L13 36H34L38 12H13" stroke="#B9945E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17" cy="40" r="2" fill="#B9945E"/><circle cx="30" cy="40" r="2" fill="#B9945E"/></svg>
+      <p style="color:var(--color-text-muted);font-size:var(--text-sm)">Sua sacola está vazia.</p>
+      <a href="#" class="btn btn--outline btn--sm">Ver produtos</a>
+    </div>
+    <ul class="cart-drawer__items" id="cartDrawerItems"></ul>
+  </div>
+  <div class="cart-drawer__footer" id="cartDrawerFooter" hidden>
+    <div class="cart-drawer__total"><span>Total</span><strong id="cartDrawerTotal">R$0,00</strong></div>
+    <a href="#" class="btn btn--primary btn--full">Finalizar compra</a>
+    <a href="#" class="cart-drawer__view-cart">Ver carrinho completo</a>
+  </div>
+</aside>
+
+<!-- SEARCH DRAWER -->
+<aside class="search-drawer" id="searchDrawer" role="dialog" aria-modal="true" aria-label="Buscar" aria-hidden="true">
+  <div class="search-drawer__inner">
+    <div class="search-drawer__header">
+      <div class="search-drawer__form">
+        <label for="searchInput" class="sr-only">Buscar produtos</label>
+        <input type="search" id="searchInput" class="search-drawer__input" placeholder="O que você está procurando?" autocomplete="off">
+        <button class="search-drawer__submit" aria-label="Buscar"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M14 14L18 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <button class="search-drawer__close" id="searchDrawerClose" aria-label="Fechar"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+    </div>
+    <div class="search-drawer__body">
+      <p class="search-drawer__label">Categorias populares</p>
+      <div class="search-quick-tags">
+        <a href="#" class="search-tag">Anéis</a><a href="#" class="search-tag">Colares</a><a href="#" class="search-tag">Brincos</a><a href="#" class="search-tag">Pulseiras</a><a href="#" class="search-tag">Conjuntos</a><a href="#" class="search-tag">Brasil Core</a>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<div class="overlay" id="overlay" aria-hidden="true"></div>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main id="main">
+
+<!-- ── HERO split editorial ── -->
+<section class="hero" aria-label="Destaque principal">
+  <!-- LEFT: copy -->
+  <div class="hero__left">
+    <span class="hero__eyebrow">Nova coleção</span>
+    <h1 class="hero__heading">o&nbsp;detalhe<br>que&nbsp;<em>muda</em><br>tudo.</h1>
+    <p class="hero__subtext">Peças que elevam o look, destacam sua presença e fazem o básico deixar de ser básico.</p>
+    <div class="hero__ctas">
+      <a href="#bestsellers" class="btn btn--primary btn--lg">Comprar agora</a>
+      <a href="#brasil-core" class="btn btn--outline-gold btn--lg">Conhecer Brasil Core</a>
+    </div>
+    <div class="hero__trust">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z" fill="#B9945E" stroke="#B9945E" stroke-width=".5" stroke-linejoin="round"/></svg>
+      Frete grátis acima de R$100
+      <span class="hero__trust-dot">•</span>
+      Envio rápido
+      <span class="hero__trust-dot">•</span>
+      Pagamento seguro
+    </div>
+  </div>
+  <!-- RIGHT: editorial panel -->
+  <div class="hero__right">
+    <div class="hero__media">
+      <div class="hero-ph">
+        <div class="hero-ph__bg"></div>
+        <div class="hero-ph__orb"></div>
+        <div class="hero-ph__ring hero-ph__ring--1"></div>
+        <div class="hero-ph__ring hero-ph__ring--2"></div>
+        <div class="hero-ph__ring hero-ph__ring--3"></div>
+        <div class="hero-ph__gem">
+          <svg width="110" height="120" viewBox="0 0 110 120" fill="none">
+            <path d="M55 8L95 42L55 112L15 42L55 8Z" fill="url(#g1)" stroke="rgba(185,148,94,.3)" stroke-width=".5"/>
+            <path d="M55 8L95 42H15L55 8Z" fill="url(#g2)" stroke="rgba(185,148,94,.2)" stroke-width=".5"/>
+            <path d="M55 8L75 42L55 112L35 42L55 8Z" fill="url(#g3)" stroke="rgba(185,148,94,.15)" stroke-width=".5"/>
+            <defs>
+              <linearGradient id="g1" x1="15" y1="42" x2="95" y2="42" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#D8BC8A" stop-opacity=".7"/><stop offset=".5" stop-color="#FAF7F2" stop-opacity=".9"/><stop offset="1" stop-color="#B9945E" stop-opacity=".7"/></linearGradient>
+              <linearGradient id="g2" x1="15" y1="42" x2="95" y2="8" gradientUnits="userSpaceOnUse"><stop stop-color="#E9DDD1"/><stop offset="1" stop-color="#FAF7F2" stop-opacity=".95"/></linearGradient>
+              <linearGradient id="g3" x1="35" y1="8" x2="75" y2="112" gradientUnits="userSpaceOnUse"><stop stop-color="#FAF7F2" stop-opacity=".6"/><stop offset="1" stop-color="#D8BC8A" stop-opacity=".4"/></linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="hero-ph__caption">
+          <span>✦ destaque do mês</span>
+          <strong>Anel Aura Dourado</strong>
+        </div>
+      </div>
+    </div>
+    <div class="hero__badge">
+      <span class="hero__badge-icon">✦</span>
+      <div class="hero__badge-text">
+        <strong>+200 peças</strong>
+        <span>aprovadas por quem ama detalhe</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CATEGORIAS ── -->
+<section class="section section--white" aria-labelledby="catH">
+  <div class="container">
+    <div class="section-heading">
+      <span class="section-heading__eyebrow">Explore as coleções</span>
+      <h2 class="section-heading__title" id="catH">Seu próximo detalhe favorito</h2>
+      <p class="section-heading__sub">Escolha a peça que vai mudar seu look hoje.</p>
+    </div>
+    <div class="categories-grid" role="list">
+      <a href="#" class="category-card" role="listitem" aria-label="Ver Anéis"><div class="category-card__image-wrapper"><div class="cat-ph cat-aneis"></div></div><div class="category-card__overlay"></div><div class="category-card__content"><span class="category-card__name">Anéis</span><span class="category-card__cta">Ver coleção <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M8 4l2 2-2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span></div></a>
+      <a href="#" class="category-card" role="listitem" aria-label="Ver Brincos"><div class="category-card__image-wrapper"><div class="cat-ph cat-brincos"></div></div><div class="category-card__overlay"></div><div class="category-card__content"><span class="category-card__name">Brincos</span><span class="category-card__cta">Ver coleção <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M8 4l2 2-2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span></div></a>
+      <a href="#" class="category-card" role="listitem" aria-label="Ver Colares"><div class="category-card__image-wrapper"><div class="cat-ph cat-colares"></div></div><div class="category-card__overlay"></div><div class="category-card__content"><span class="category-card__name">Colares</span><span class="category-card__cta">Ver coleção <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M8 4l2 2-2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span></div></a>
+      <a href="#" class="category-card" role="listitem" aria-label="Ver Pulseiras"><div class="category-card__image-wrapper"><div class="cat-ph cat-pulseiras"></div></div><div class="category-card__overlay"></div><div class="category-card__content"><span class="category-card__name">Pulseiras</span><span class="category-card__cta">Ver coleção <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M8 4l2 2-2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span></div></a>
+      <a href="#" class="category-card" role="listitem" aria-label="Ver Conjuntos"><div class="category-card__image-wrapper"><div class="cat-ph cat-conjuntos"></div></div><div class="category-card__overlay"></div><div class="category-card__content"><span class="category-card__name">Conjuntos</span><span class="category-card__cta">Ver coleção <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M8 4l2 2-2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span></div></a>
+      <a href="#" class="category-card" role="listitem" aria-label="Ver Relógios"><div class="category-card__image-wrapper"><div class="cat-ph cat-relogios"></div></div><div class="category-card__overlay"></div><div class="category-card__content"><span class="category-card__name">Relógios</span><span class="category-card__cta">Ver coleção <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M8 4l2 2-2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── MAIS VENDIDOS ── -->
+<section class="section section--sand" id="bestsellers" aria-labelledby="bsH">
+  <div class="container">
+    <div class="section-heading">
+      <span class="section-heading__eyebrow">Escolhas de quem entende</span>
+      <h2 class="section-heading__title" id="bsH">Os favoritos da VANT</h2>
+      <p class="section-heading__sub">Peças que não passam despercebidas.</p>
+    </div>
+    <div class="products-carousel" id="bestsellersCarousel">
+
+      <article class="product-card">
+        <div class="product-card__image-wrapper">
+          <a href="#" class="product-card__image-link"><div class="prod-ph pr1"><svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="12" stroke="#B9945E" stroke-width="1.5"/><circle cx="26" cy="26" r="18" stroke="#B9945E" stroke-width=".75" stroke-dasharray="2 3"/></svg></div></a>
+          <div class="product-card__badges"><span class="badge badge--bestseller">Mais vendido</span></div>
+          <button class="product-card__wishlist wishlist-btn" aria-label="Favoritar" data-product-id="1" data-product-name="Anel Aura Dourado"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+          <div class="product-card__quick-add"><button class="product-card__quick-add-btn">Adicionar à sacola</button></div>
+        </div>
+        <div class="product-card__info">
+          <a href="#" class="product-card__name-link"><h3 class="product-card__name">Anel Aura Dourado</h3></a>
+          <div class="price-display"><span class="price-display__current">R$ 89,90</span><span class="price-display__installments">ou 3× de R$ 29,96 sem juros</span></div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__image-wrapper">
+          <a href="#" class="product-card__image-link"><div class="prod-ph pr2"><svg width="52" height="52" viewBox="0 0 52 52" fill="none"><path d="M26 10L29 21H41L32 28L35 39L26 32L17 39L20 28L11 21H23L26 10Z" stroke="#B9945E" stroke-width="1.5" stroke-linejoin="round"/></svg></div></a>
+          <div class="product-card__badges"><span class="badge badge--new">Novo</span></div>
+          <button class="product-card__wishlist wishlist-btn" aria-label="Favoritar" data-product-id="2" data-product-name="Brinco Sol Prata"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+          <div class="product-card__quick-add"><button class="product-card__quick-add-btn">Adicionar à sacola</button></div>
+        </div>
+        <div class="product-card__info">
+          <a href="#" class="product-card__name-link"><h3 class="product-card__name">Brinco Sol Prata</h3></a>
+          <div class="price-display"><span class="price-display__compare"><s>R$ 120,00</s></span><span class="price-display__current price-display__current--sale">R$ 94,90</span><span class="price-display__installments">ou 3× de R$ 31,63</span></div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__image-wrapper">
+          <a href="#" class="product-card__image-link"><div class="prod-ph pr3"><svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="14" stroke="#B9945E" stroke-width="1.5"/><circle cx="26" cy="26" r="4" fill="#B9945E" fill-opacity=".35"/></svg></div></a>
+          <div class="product-card__badges"><span class="badge badge--bestseller">Mais vendido</span></div>
+          <button class="product-card__wishlist wishlist-btn" aria-label="Favoritar" data-product-id="3" data-product-name="Colar Nara Dourado"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+          <div class="product-card__quick-add"><button class="product-card__quick-add-btn">Adicionar à sacola</button></div>
+        </div>
+        <div class="product-card__info">
+          <a href="#" class="product-card__name-link"><h3 class="product-card__name">Colar Nara Dourado</h3></a>
+          <div class="price-display"><span class="price-display__current">R$ 139,90</span><span class="price-display__installments">ou 4× de R$ 34,97</span></div>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__image-wrapper">
+          <a href="#" class="product-card__image-link"><div class="prod-ph pr4"><svg width="52" height="52" viewBox="0 0 52 52" fill="none"><path d="M14 26c0-6.627 5.373-12 12-12s12 5.373 12 12-5.373 12-12 12" stroke="#B9945E" stroke-width="1.5" stroke-linecap="round"/></svg></div></a>
+          <div class="product-card__badges"><span class="badge badge--brasil-core">Brasil Core</span></div>
+          <button class="product-card__wishlist wishlist-btn" aria-label="Favoritar" data-product-id="4" data-product-name="Pulseira Lume Dourada"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+          <div class="product-card__quick-add"><button class="product-card__quick-add-btn">Adicionar à sacola</button></div>
+        </div>
+        <div class="product-card__info">
+          <a href="#" class="product-card__name-link"><h3 class="product-card__name">Pulseira Lume Dourada</h3></a>
+          <div class="price-display"><span class="price-display__current">R$ 79,90</span><span class="price-display__installments">ou 2× de R$ 39,95</span></div>
+        </div>
+      </article>
+
+    </div>
+    <div class="section__cta"><a href="#" class="btn btn--outline btn--lg">Ver todos os mais vendidos</a></div>
+  </div>
+</section>
+
+<!-- ── BRASIL CORE BANNER ── -->
+<section class="brasil-core-banner" id="brasil-core" aria-label="Coleção Brasil Core">
+  <div class="brasil-core-banner__media">
+    <div class="bc-ph">
+      <div class="bc-ph__pattern"></div>
+      <div class="bc-ph__icon">
+        <svg width="140" height="140" viewBox="0 0 140 140" fill="none" aria-hidden="true">
+          <circle cx="70" cy="70" r="50" stroke="white" stroke-width=".75" stroke-dasharray="3 4"/>
+          <circle cx="70" cy="70" r="34" stroke="white" stroke-width=".5" stroke-opacity=".6"/>
+          <path d="M70 30L77 52H100L82 65L89 88L70 75L51 88L58 65L40 52H63L70 30Z" fill="white" fill-opacity=".25" stroke="white" stroke-width=".5"/>
+          <path d="M70 20V30M70 110V120M20 70H30M110 70H120M35.9 35.9L43 43M97 97L104 104M35.9 104.1L43 97M97 43L104 36" stroke="white" stroke-width=".75" stroke-linecap="round" stroke-opacity=".4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="brasil-core-banner__content">
+    <span class="brasil-core-banner__eyebrow">Coleção exclusiva</span>
+    <h2 class="brasil-core-banner__title">Brasil Core,<br>do seu jeito.</h2>
+    <p class="brasil-core-banner__sub">Texturas, dourado, atitude e detalhes que fazem qualquer look parecer pensado.</p>
+    <a href="#" class="btn btn--gold btn--lg">Explorar coleção</a>
+  </div>
+</section>
+
+<!-- ── STORYTELLING ── -->
+<section class="storytelling" aria-labelledby="stH">
+  <div class="storytelling__media">
+    <div class="st-ph">
+      <div class="st-ph__icon">
+        <svg width="160" height="160" viewBox="0 0 160 160" fill="none" aria-hidden="true">
+          <circle cx="80" cy="80" r="40" stroke="#B9945E" stroke-width="1"/>
+          <circle cx="80" cy="80" r="28" stroke="#B9945E" stroke-width=".5"/>
+          <circle cx="80" cy="80" r="12" fill="#B9945E" fill-opacity=".2" stroke="#B9945E" stroke-width=".5"/>
+          <circle cx="80" cy="80" r="60" stroke="#B9945E" stroke-width=".5" stroke-dasharray="2 4"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="storytelling__content">
+    <span class="storytelling__eyebrow">Mais do que uma peça</span>
+    <h2 class="storytelling__title" id="stH">Não é só<br>um acessório.</h2>
+    <p class="storytelling__text">É aquele detalhe que muda sua postura, transforma o look e faz você lembrar da mulher que está se tornando. Pequeno por fora. Inteiro por dentro.</p>
+    <a href="#" class="btn btn--primary btn--lg">Escolher minha peça</a>
+  </div>
+</section>
+
+<!-- ── NOVIDADES ── -->
+<section class="section section--white" aria-labelledby="newH">
+  <div class="container">
+    <div class="section-heading">
+      <span class="section-heading__eyebrow">Recém chegadas</span>
+      <h2 class="section-heading__title" id="newH">Chegaram agora</h2>
+      <p class="section-heading__sub">Chegaram agora para ocupar o lugar que faltava no seu porta-joias.</p>
+    </div>
+    <div class="products-grid products-grid--4col">
+
+      <article class="product-card"><div class="product-card__image-wrapper"><a href="#" class="product-card__image-link"><div class="prod-ph pr5"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" opacity=".3"><circle cx="22" cy="22" r="10" stroke="#B9945E" stroke-width="1.5"/></svg></div></a><div class="product-card__badges"><span class="badge badge--new">Novo</span></div><button class="product-card__wishlist wishlist-btn" data-product-id="5" data-product-name="Anel Íris Prata" aria-label="Favoritar"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button><div class="product-card__quick-add"><button class="product-card__quick-add-btn">Adicionar à sacola</button></div></div><div class="product-card__info"><a href="#" class="product-card__name-link"><h3 class="product-card__name">Anel Íris Prata</h3></a><div class="price-display"><span class="price-display__current">R$ 74,90</span><span class="price-display__installments">ou 2× de R$ 37,45</span></div></div></article>
+
+      <article class="product-card"><div class="product-card__image-wrapper"><a href="#" class="product-card__image-link"><div class="prod-ph pr6"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" opacity=".3"><path d="M22 6L25 16H35L27 22L30 32L22 26L14 32L17 22L9 16H19L22 6Z" stroke="#B9945E" stroke-width="1.5" stroke-linejoin="round"/></svg></div></a><div class="product-card__badges"><span class="badge badge--new">Novo</span></div><button class="product-card__wishlist wishlist-btn" data-product-id="6" data-product-name="Brinco Miragem Dourado" aria-label="Favoritar"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button><div class="product-card__quick-add"><button class="product-card__quick-add-btn">Adicionar à sacola</button></div></div><div class="product-card__info"><a href="#" class="product-card__name-link"><h3 class="product-card__name">Brinco Miragem Dourado</h3></a><div class="price-display"><span class="price-display__current">R$ 99,90</span><span class="price-display__installments">ou 3× de R$ 33,30</span></div></div></article>
+
+      <article class="product-card"><div class="product-card__image-wrapper"><a href="#" class="product-card__image-link"><div class="prod-ph pr1"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" opacity=".3"><circle cx="22" cy="22" r="14" stroke="#B9945E" stroke-width="1.5"/><circle cx="22" cy="22" r="3" fill="#B9945E" opacity=".5"/></svg></div></a><div class="product-card__badges"><span class="badge badge--new">Novo</span><span class="badge badge--brasil-core">Brasil Core</span></div><button class="product-card__wishlist wishlist-btn" data-product-id="7" data-product-name="Colar Brisa Dourado" aria-label="Favoritar"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button><div class="product-card__quick-add"><button class="product-card__quick-add-btn">Adicionar à sacola</button></div></div><div class="product-card__info"><a href="#" class="product-card__name-link"><h3 class="product-card__name">Colar Brisa Dourado</h3></a><div class="price-display"><span class="price-display__current">R$ 149,90</span><span class="price-display__installments">ou 4× de R$ 37,47</span></div></div></article>
+
+      <article class="product-card"><div class="product-card__image-wrapper"><a href="#" class="product-card__image-link"><div class="prod-ph pr3"><svg width="44" height="44" viewBox="0 0 44 44" fill="none" opacity=".3"><rect x="12" y="19" width="20" height="6" rx="3" stroke="#B9945E" stroke-width="1.5"/><path d="M15 19V15a7 7 0 0114 0v4" stroke="#B9945E" stroke-width="1.5" stroke-linecap="round"/></svg></div></a><div class="product-card__badges"><span class="badge badge--last">Últimas unidades</span></div><button class="product-card__wishlist wishlist-btn" data-product-id="8" data-product-name="Conjunto Horizonte" aria-label="Favoritar"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button><div class="product-card__quick-add"><button class="product-card__quick-add-btn">Adicionar à sacola</button></div></div><div class="product-card__info"><a href="#" class="product-card__name-link"><h3 class="product-card__name">Conjunto Horizonte</h3></a><div class="price-display"><span class="price-display__compare"><s>R$ 219,90</s></span><span class="price-display__current price-display__current--sale">R$ 179,90</span><span class="price-display__installments">ou 5× de R$ 35,98</span></div></div></article>
+
+    </div>
+    <div class="section__cta"><a href="#" class="btn btn--outline btn--lg">Explorar todas as novidades</a></div>
+  </div>
+</section>
+
+<!-- ── BENEFITS BAR ── -->
+<section class="benefits-bar" aria-label="Benefícios da VANT">
+  <div class="container">
+    <ul class="benefits-bar__list" role="list">
+      <li class="benefit-item">
+        <div class="benefit-item__icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M5 14L14 5L23 14M14 5V23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 23H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <strong class="benefit-item__title">Frete grátis</strong>
+        <span class="benefit-item__desc">Em compras acima de R$100</span>
+      </li>
+      <li class="benefit-item">
+        <div class="benefit-item__icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 7H20L22 19H6L4 7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 7L3 4H1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="23" r="1.5" fill="currentColor"/><circle cx="17" cy="23" r="1.5" fill="currentColor"/></svg></div>
+        <strong class="benefit-item__title">Envio rápido</strong>
+        <span class="benefit-item__desc">Para todo o Brasil</span>
+      </li>
+      <li class="benefit-item">
+        <div class="benefit-item__icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 2L4 7V14C4 19.5 8.5 24.5 14 26C19.5 24.5 24 19.5 24 14V7L14 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 14L13 17L18 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <strong class="benefit-item__title">Pagamento seguro</strong>
+        <span class="benefit-item__desc">Pix, cartão ou boleto</span>
+      </li>
+      <li class="benefit-item">
+        <div class="benefit-item__icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M20 8L14 14L8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 14V24M6 24H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6 4H22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <strong class="benefit-item__title">Troca fácil</strong>
+        <span class="benefit-item__desc">Sem burocracia</span>
+      </li>
+      <li class="benefit-item">
+        <div class="benefit-item__icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M5 8L14 4L23 8V18L14 24L5 18V8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 4V24M5 8L14 14L23 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <strong class="benefit-item__title">Embalagem especial</strong>
+        <span class="benefit-item__desc">Pronta para presentear</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── PROVA SOCIAL ── -->
+<section class="social-proof section" aria-labelledby="rvH">
+  <div class="container">
+    <div class="section-heading">
+      <span class="section-heading__eyebrow">Quem já usa, ama</span>
+      <h2 class="section-heading__title" id="rvH">VANT no look de quem<br><em>entende de detalhe.</em></h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+        </div>
+        <p class="review-card__text">"O anel chegou antes do prazo, embalagem linda demais. Usei no mesmo dia que recebi e já tive três elogios. Simplesmente perfeito."</p>
+        <div class="review-card__author">
+          <div class="review-card__avatar">JF</div>
+          <div><span class="review-card__name">Julia Ferreira</span><span class="review-card__product">Anel Aura Dourado</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+        </div>
+        <p class="review-card__text">"Já comprei o colar e a pulseira. A qualidade é impressionante pelo preço. Minhas amigas sempre perguntam onde comprei e fico orgulhosa de indicar."</p>
+        <div class="review-card__author">
+          <div class="review-card__avatar">MC</div>
+          <div><span class="review-card__name">Mariana Costa</span><span class="review-card__product">Colar Nara Dourado</span></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-card__stars">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5L7 1Z"/></svg>
+        </div>
+        <p class="review-card__text">"Presenteei minha melhor amiga com o conjunto Horizonte e ela ficou sem palavras. A embalagem parece de loja grife mesmo. VANT conquistou minha fidelidade."</p>
+        <div class="review-card__author">
+          <div class="review-card__avatar">TR</div>
+          <div><span class="review-card__name">Tainá Ribeiro</span><span class="review-card__product">Conjunto Horizonte</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INSTAGRAM ── -->
+<section class="section section--sand" aria-labelledby="igH">
+  <div class="container">
+    <div class="section-heading">
+      <span class="section-heading__eyebrow">@getvant_com</span>
+      <h2 class="section-heading__title" id="igH">VANT no seu feed,<br>VANT na sua vida.</h2>
+    </div>
+    <div class="instagram-grid">
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item"><div class="ig-ph ig1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity=".3"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#B9945E" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="#B9945E" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#B9945E"/></svg></div></a>
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item"><div class="ig-ph ig2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity=".3"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#B9945E" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="#B9945E" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#B9945E"/></svg></div></a>
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item"><div class="ig-ph ig3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity=".3"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#B9945E" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="#B9945E" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#B9945E"/></svg></div></a>
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item"><div class="ig-ph ig4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity=".3"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#B9945E" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="#B9945E" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#B9945E"/></svg></div></a>
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item instagram-grid__item--hidden-mobile"><div class="ig-ph ig5"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity=".3"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#B9945E" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="#B9945E" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#B9945E"/></svg></div></a>
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="instagram-grid__item instagram-grid__item--hidden-mobile"><div class="ig-ph ig6"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity=".3"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#B9945E" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="#B9945E" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#B9945E"/></svg></div></a>
+    </div>
+    <div class="section__cta">
+      <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--lg">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        Seguir @getvant_com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER ── -->
+<section class="newsletter-section" aria-labelledby="nlH">
+  <div class="container">
+    <div class="newsletter-section__inner">
+      <div>
+        <h2 class="newsletter-section__title" id="nlH">Receba novidades,<br>lançamentos e detalhes<br><em style="color:var(--color-gold-dark)">que valem ouro.</em></h2>
+        <p class="newsletter-section__sub" style="margin-top:.5rem">Sem excesso. Só o que vale abrir.</p>
+      </div>
+      <div class="newsletter-form" style="max-width:440px">
+        <div class="newsletter-form__group">
+          <label for="nlEmail" class="sr-only">Seu melhor e-mail</label>
+          <input type="email" id="nlEmail" placeholder="Seu melhor e-mail" class="newsletter-form__input" autocomplete="email">
+          <button type="button" class="newsletter-form__btn">Quero receber</button>
+        </div>
+        <p class="newsletter-form__success" aria-live="polite" hidden>Pronto. Agora você está mais perto do seu próximo detalhe favorito. ✦</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/logo-vant.png" alt="VANT Fine Jewelry" class="footer__logo-img">
+        <p class="footer__slogan">O detalhe que muda tudo.</p>
+        <a href="https://instagram.com/getvant_com" target="_blank" rel="noopener noreferrer" class="footer__instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          @getvant_com
+        </a>
+      </div>
+      <nav class="footer__nav">
+        <div class="footer__nav-col">
+          <h3 class="footer__nav-title">Coleções</h3>
+          <ul><li><a href="#" class="footer__nav-link">Anéis</a></li><li><a href="#" class="footer__nav-link">Colares</a></li><li><a href="#" class="footer__nav-link">Brincos</a></li><li><a href="#" class="footer__nav-link">Pulseiras</a></li><li><a href="#" class="footer__nav-link">Conjuntos</a></li><li><a href="#" class="footer__nav-link">Relógios</a></li><li><a href="#" class="footer__nav-link footer__nav-link--featured">Brasil Core ✦</a></li></ul>
+        </div>
+        <div class="footer__nav-col">
+          <h3 class="footer__nav-title">Ajuda</h3>
+          <ul><li><a href="#" class="footer__nav-link">Contato</a></li><li><a href="#" class="footer__nav-link">FAQ</a></li><li><a href="#" class="footer__nav-link">Guia de tamanhos</a></li><li><a href="#" class="footer__nav-link">Trocas e devoluções</a></li><li><a href="#" class="footer__nav-link">Rastrear pedido</a></li></ul>
+        </div>
+        <div class="footer__nav-col">
+          <h3 class="footer__nav-title">A loja</h3>
+          <ul><li><a href="#" class="footer__nav-link">Política de privacidade</a></li><li><a href="#" class="footer__nav-link">Termos de uso</a></li><li><a href="#" class="footer__nav-link">Mais Vendidos</a></li><li><a href="#" class="footer__nav-link">Novidades</a></li></ul>
+        </div>
+      </nav>
+      <div class="footer__newsletter">
+        <h3 class="footer__newsletter-title">Entre para a lista VANT</h3>
+        <p class="footer__newsletter-text">Novidades, lançamentos e condições especiais direto no seu e-mail.</p>
+        <div class="newsletter-form__group">
+          <label for="footerEmail" class="sr-only">Seu e-mail</label>
+          <input type="email" id="footerEmail" placeholder="Seu melhor e-mail" class="newsletter-form__input">
+          <button type="button" class="newsletter-form__btn">Entrar</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__legal">&copy; 2026 VANT Fine Jewelry. Todos os direitos reservados.</p>
+      <div class="footer__payment-icons">
+        <span class="payment-icon">Pix</span>
+        <span class="payment-icon">Cartão</span>
+        <span class="payment-icon">Boleto</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- COOKIES -->
+<div class="cookies-banner" id="cookiesBanner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
+  <div class="cookies-banner__inner">
+    <p class="cookies-banner__text">Usamos cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <a href="#" class="cookies-banner__link">Política de Privacidade</a>.</p>
+    <div class="cookies-banner__actions">
+      <button class="btn btn--ghost btn--sm" id="cookiesDecline">Apenas essenciais</button>
+      <button class="btn btn--gold btn--sm" id="cookiesAccept">Aceitar tudo</button>
+    </div>
+  </div>
+</div>
+
+<template id="cartItemTemplate">
+  <li class="cart-item">
+    <a class="cart-item__image-link" href=""><img class="cart-item__image" src="" alt="" width="80" height="80" loading="lazy"></a>
+    <div class="cart-item__info">
+      <a class="cart-item__name" href=""></a>
+      <span class="cart-item__variant"></span>
+      <div class="cart-item__actions">
+        <div class="qty-selector">
+          <button class="qty-selector__btn qty-selector__btn--minus" aria-label="Diminuir">−</button>
+          <input type="number" class="qty-selector__input" min="1" max="99" value="1" aria-label="Quantidade">
+          <button class="qty-selector__btn qty-selector__btn--plus" aria-label="Aumentar">+</button>
+        </div>
+        <span class="cart-item__price"></span>
+        <button class="cart-item__remove" aria-label="Remover"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2L12 12M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+    </div>
+  </li>
+</template>
+
+<script src="assets/theme.js"></script>
+</body>
+</html>

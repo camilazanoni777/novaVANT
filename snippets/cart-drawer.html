@@ -1,0 +1,84 @@
+<aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Carrinho de compras" aria-hidden="true">
+  <div class="cart-drawer__inner">
+
+    <!-- Header -->
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Sua sacola</h2>
+      <button class="cart-drawer__close" id="cartDrawerClose" aria-label="Fechar carrinho">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Free shipping indicator -->
+    <div class="cart-drawer__shipping-bar" id="cartShippingBar">
+      <div class="shipping-bar__track">
+        <div class="shipping-bar__fill" id="shippingBarFill" style="width: 0%"></div>
+      </div>
+      <p class="shipping-bar__text" id="shippingBarText">
+        Falta <strong id="shippingBarAmount">R$100,00</strong> para frete grátis
+      </p>
+    </div>
+
+    <!-- Cart items -->
+    <div class="cart-drawer__body">
+      <ul class="cart-drawer__items" id="cartDrawerItems" role="list" aria-live="polite">
+        <!-- Items rendered by JS -->
+      </ul>
+
+      <!-- Empty state -->
+      <div class="cart-drawer__empty" id="cartDrawerEmpty" hidden>
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M6 6H9L12 30H38L42 12H14" stroke="#C7A879" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="20" cy="38" r="2.5" fill="#C7A879"/>
+          <circle cx="32" cy="38" r="2.5" fill="#C7A879"/>
+        </svg>
+        <p>Sua sacola está vazia.</p>
+        <a href="{{ store.url }}" class="btn btn--primary btn--sm">Ver produtos</a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="cart-drawer__footer" id="cartDrawerFooter" hidden>
+      <div class="cart-drawer__total">
+        <span>Total</span>
+        <strong id="cartDrawerTotal">R$0,00</strong>
+      </div>
+      <p class="cart-drawer__pix-note" id="cartPixNote"></p>
+      <a href="{{ store.url }}/checkout" class="btn btn--primary btn--full">
+        Finalizar compra
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <a href="{{ store.url }}/carrinho" class="cart-drawer__view-cart">Ver carrinho completo</a>
+    </div>
+
+  </div>
+</aside>
+
+<template id="cartItemTemplate">
+  <li class="cart-item">
+    <a class="cart-item__image-link" href="">
+      <img class="cart-item__image" src="" alt="" width="80" height="80" loading="lazy">
+    </a>
+    <div class="cart-item__info">
+      <a class="cart-item__name" href=""></a>
+      <span class="cart-item__variant"></span>
+      <div class="cart-item__actions">
+        <div class="qty-selector">
+          <button class="qty-selector__btn qty-selector__btn--minus" aria-label="Diminuir quantidade">−</button>
+          <input type="number" class="qty-selector__input" min="1" max="99" value="1" aria-label="Quantidade">
+          <button class="qty-selector__btn qty-selector__btn--plus" aria-label="Aumentar quantidade">+</button>
+        </div>
+        <span class="cart-item__price"></span>
+        <button class="cart-item__remove" aria-label="Remover item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 2L12 12M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </li>
+</template>

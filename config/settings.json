@@ -1,0 +1,165 @@
+{
+  "name": "VANT Theme",
+  "version": "1.0.0",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Identidade Visual"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo da loja",
+      "info": "Recomendado: PNG transparente, mínimo 240x80px"
+    },
+    {
+      "type": "header",
+      "content": "Hero Principal"
+    },
+    {
+      "type": "video_url",
+      "id": "hero_video_desktop",
+      "label": "Vídeo do hero (horizontal)",
+      "info": "MP4, recomendado 1920x1080px. Substitui o fundo do hero na versão desktop."
+    },
+    {
+      "type": "video_url",
+      "id": "hero_video_mobile",
+      "label": "Vídeo do hero (vertical)",
+      "info": "MP4, recomendado 1080x1920px. Exibido em dispositivos móveis."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_poster_desktop",
+      "label": "Poster do hero desktop",
+      "info": "Exibido enquanto o vídeo carrega. JPEG, 1920x1080px."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_poster_mobile",
+      "label": "Poster do hero mobile",
+      "info": "JPEG, 1080x1920px."
+    },
+    {
+      "type": "header",
+      "content": "Categorias em destaque"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_aneis",
+      "label": "Foto da categoria: Anéis"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_brincos",
+      "label": "Foto da categoria: Brincos"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_colares",
+      "label": "Foto da categoria: Colares"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_pulseiras",
+      "label": "Foto da categoria: Pulseiras"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_conjuntos",
+      "label": "Foto da categoria: Conjuntos"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_relogios",
+      "label": "Foto da categoria: Relógios"
+    },
+    {
+      "type": "image_picker",
+      "id": "cat_image_cintos",
+      "label": "Foto da categoria: Cintos"
+    },
+    {
+      "type": "header",
+      "content": "Banner Brasil Core"
+    },
+    {
+      "type": "image_picker",
+      "id": "brasil_core_banner",
+      "label": "Imagem do banner Brasil Core",
+      "info": "Recomendado: 1440x680px. Pode ser substituído por imagem editorial enviada pela marca."
+    },
+    {
+      "type": "header",
+      "content": "Feed do Instagram"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_1",
+      "label": "Foto Instagram 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_2",
+      "label": "Foto Instagram 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_3",
+      "label": "Foto Instagram 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_4",
+      "label": "Foto Instagram 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_5",
+      "label": "Foto Instagram 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_6",
+      "label": "Foto Instagram 6"
+    },
+    {
+      "type": "header",
+      "content": "WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "Número do WhatsApp",
+      "info": "Incluir código do país e DDD. Ex: 5511999999999",
+      "placeholder": "5511999999999"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_whatsapp_button",
+      "label": "Exibir botão flutuante do WhatsApp",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Frete Grátis"
+    },
+    {
+      "type": "number",
+      "id": "free_shipping_threshold",
+      "label": "Valor mínimo para frete grátis (em R$)",
+      "default": 100,
+      "info": "Usado na barra de progresso do carrinho."
+    },
+    {
+      "type": "header",
+      "content": "SEO e Redes Sociais"
+    },
+    {
+      "type": "image_picker",
+      "id": "og_image",
+      "label": "Imagem padrão para compartilhamento",
+      "info": "Open Graph — 1200x630px. Usada quando uma página não tem imagem própria."
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{% comment %}
+  Product Card Snippet
+  Usage: {% include 'product-card', product: product %}
+{% endcomment %}
+
+<article class="product-card" data-product-id="{{ product.id }}">
+  <div class="product-card__image-wrapper">
+    <a href="{{ product.url }}" class="product-card__image-link" aria-label="Ver {{ product.name }}" tabindex="-1">
+
+      <!-- Main image -->
+      {% if product.featured_image %}
+      <img
+        class="product-card__img product-card__img--main"
+        src="{{ product.featured_image | image_url: '600x600' }}"
+        alt="{{ product.featured_image.alt | default: product.name }}"
+        width="600"
+        height="600"
+        loading="lazy"
+      >
+      {% else %}
+      <div class="product-card__placeholder" aria-hidden="true"></div>
+      {% endif %}
+
+      <!-- Hover image (second image if available) -->
+      {% if product.images.size > 1 %}
+      <img
+        class="product-card__img product-card__img--hover"
+        src="{{ product.images[1] | image_url: '600x600' }}"
+        alt="{{ product.images[1].alt | default: product.name }}"
+        width="600"
+        height="600"
+        loading="lazy"
+        aria-hidden="true"
+      >
+      {% endif %}
+
+    </a>
+
+    <!-- Badges -->
+    <div class="product-card__badges" aria-label="Destaques do produto">
+      {% if product.tags contains 'Mais vendido' %}
+      <span class="badge badge--bestseller">Mais vendido</span>
+      {% endif %}
+      {% if product.tags contains 'Novidade' %}
+      <span class="badge badge--new">Novidade</span>
+      {% endif %}
+      {% if product.tags contains 'Brasil Core' %}
+      <span class="badge badge--brasil-core">Brasil Core</span>
+      {% endif %}
+    </div>
+
+    <!-- Wishlist button -->
+    <button
+      class="product-card__wishlist wishlist-btn"
+      aria-label="Adicionar {{ product.name }} aos favoritos"
+      data-product-id="{{ product.id }}"
+      data-product-name="{{ product.name }}"
+      data-product-url="{{ product.url }}"
+      data-product-image="{{ product.featured_image | image_url: '300x300' }}"
+    >
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M10 17.5C10 17.5 2 12.5 2 7C2 4.5 4 2.5 6.5 2.5C8 2.5 9.5 3.2 10 4.5C10.5 3.2 12 2.5 13.5 2.5C16 2.5 18 4.5 18 7C18 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Quick add (only for products without mandatory variants) -->
+    {% if product.variants.size <= 1 %}
+    <form class="product-card__quick-add" action="{{ store.url }}/add-to-cart/{{ product.id }}" method="post">
+      <input type="hidden" name="product_id" value="{{ product.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" class="product-card__quick-add-btn" aria-label="Adicionar {{ product.name }} à sacola">
+        Adicionar à sacola
+      </button>
+    </form>
+    {% endif %}
+  </div>
+
+  <div class="product-card__info">
+    <a href="{{ product.url }}" class="product-card__name-link">
+      <h3 class="product-card__name">{{ product.name }}</h3>
+    </a>
+
+    {% include 'price-display', product: product %}
+  </div>
+</article>
