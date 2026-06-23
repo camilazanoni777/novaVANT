@@ -1,0 +1,12 @@
+.agents/
+.claude/
+.codex/
+.git/
+config/
+layout/
+snippets/
+templates/
+scrape-output/
+scripts/
+preview.html
+README.md

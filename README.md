@@ -141,12 +141,56 @@ git push
 
 Para publicar qualquer outro conjunto de alterações, substitua `README.md` pelos arquivos modificados ou use `git add -A` quando tudo que estiver alterado fizer parte da entrega.
 
+## Como fazer deploy na Vercel
+
+Este projeto ja esta preparado para deploy estatico na Vercel.
+
+Arquivos importantes para a Vercel:
+
+- `index.html`: entrada principal do site em producao.
+- `assets/theme.css`: estilos do site.
+- `assets/theme.js`: interacoes do site.
+- `assets/logo-vant.png`: logo usada no rodape.
+- `vercel.json`: configuracao de rotas, URLs limpas e headers.
+- `.vercelignore`: evita publicar arquivos locais, scraping e documentacao que nao fazem parte da pagina final.
+- `package.json`: scripts uteis para testar e publicar.
+
+Deploy pelo painel da Vercel:
+
+1. Entre em `https://vercel.com`.
+2. Clique em `Add New...` e depois em `Project`.
+3. Importe o repositorio `camilazanoni777/novaVANT`.
+4. Em `Framework Preset`, selecione `Other`.
+5. Deixe `Build Command` vazio.
+6. Deixe `Output Directory` vazio ou como raiz do projeto.
+7. Clique em `Deploy`.
+
+Deploy pelo terminal:
+
+```powershell
+npm run deploy
+```
+
+Para publicar direto em producao:
+
+```powershell
+npm run deploy:prod
+```
+
+Para testar localmente de forma parecida com a Vercel:
+
+```powershell
+npm run dev
+```
+
+Depois abra o endereco local mostrado no terminal.
+
 ## Como clonar em outra máquina
 
 ```powershell
 git clone https://github.com/camilazanoni777/novaVANT.git
 cd novaVANT
-Start-Process .\preview.html
+npm run dev
 ```
 
 ## Cuidados importantes
@@ -168,7 +212,11 @@ NOVA VANT/
 +-- scripts/
 +-- snippets/
 +-- templates/
++-- index.html
 +-- preview.html
++-- package.json
++-- vercel.json
++-- .vercelignore
 +-- .gitignore
 +-- README.md
 ```

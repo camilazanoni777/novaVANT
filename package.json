@@ -1,0 +1,16 @@
+{
+  "name": "nova-vant",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Preview estatico da loja VANT preparado para deploy na Vercel.",
+  "scripts": {
+    "dev": "npx --yes serve@latest .",
+    "start": "npx --yes serve@latest .",
+    "check:scraper": "node --check scripts/scrape-getvant.mjs",
+    "deploy": "npx --yes vercel@latest",
+    "deploy:prod": "npx --yes vercel@latest --prod"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
